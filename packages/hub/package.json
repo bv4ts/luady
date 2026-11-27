@@ -17,7 +17,7 @@
   "dependencies": {
     "@fastify/cookie": "11.1.3",
     "@fastify/rate-limit": "11.2.1",
-    "@fastify/static": "10.1.6",
+    "@fastify/static": "10.1.12",
     "@fastify/websocket": "11.3.4",
     "@luady/shared": "*",
     "@modelcontextprotocol/sdk": "1.32.1",
