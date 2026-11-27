@@ -17,7 +17,7 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 
 | Licence | Packages | Runtime |
 | --- | --- | --- |
-| MIT | 391 | 257 |
+| MIT | 386 | 256 |
 | ISC | 20 | 19 |
 | BSD-3-Clause | 13 | 11 |
 | MPL-2.0 | 12 | 0 |
@@ -33,7 +33,7 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | OFL-1.1 | 1 | 1 |
 | Unlicense | 1 | 1 |
 
-## MIT (391)
+## MIT (386)
 
 | Package | Version | Kind |
 | --- | --- | --- |
@@ -71,6 +71,7 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | @hexagon/base64 | 1.1.28 | runtime |
 | @hono/node-server | 2.1.11 | runtime |
 | @jridgewell/resolve-uri | 3.1.2 | dev |
+| @jridgewell/resolve-uri | 3.1.3 | dev |
 | @jridgewell/sourcemap-codec | 1.6.0 | dev |
 | @jridgewell/trace-mapping | 0.3.31 | dev |
 | @levischuck/tiny-cbor | 0.2.11 | runtime |
@@ -138,6 +139,7 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | @rolldown/binding-win32-x64-msvc | 1.2.13 | dev |
 | @rolldown/binding-win32-x64-msvc | 1.2.19 | dev |
 | @rolldown/pluginutils | 1.0.1 | dev |
+| @rolldown/pluginutils | 1.1.1 | dev |
 | @selderee/plugin-htmlparser2 | 0.12.0 | runtime |
 | @simplewebauthn/browser | 14.0.0 | runtime |
 | @simplewebauthn/server | 14.1.0 | runtime |
@@ -150,6 +152,7 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | @types/chai | 5.2.3 | dev |
 | @types/deep-eql | 4.0.2 | dev |
 | @types/earcut | 3.0.0 | runtime |
+| @types/estree | 1.0.10 | dev |
 | @types/estree | 1.0.9 | dev |
 | @types/mailparser | 3.9.0 | dev |
 | @types/node | 22.20.5 | dev |
@@ -163,9 +166,7 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | @vitest/coverage-v8 | 5.1.1 | dev |
 | @vitest/istanbul-lib-coverage | 2.1.1 | dev |
 | @vitest/istanbul-lib-report | 2.1.1 | dev |
-| @vitest/mocker | 5.0.3 | dev |
 | @vitest/mocker | 5.1.1 | dev |
-| @vitest/spy | 5.0.3 | dev |
 | @vitest/spy | 5.1.1 | dev |
 | @xmldom/xmldom | 0.8.15 | runtime |
 | @xterm/addon-fit | 0.11.0 | runtime |
@@ -293,11 +294,9 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | linkify-it | 6.1.0 | runtime |
 | locate-path | 5.0.0 | runtime |
 | lz-string | 1.5.0 | dev |
-| magic-string | 1.4.3 | dev |
 | magic-string | 1.4.5 | dev |
 | magicast | 0.5.5 | dev |
 | mailparser | 3.15.0 | runtime |
-| marked | 18.1.0 | runtime |
 | marked | 18.3.0 | runtime |
 | math-intrinsics | 1.1.0 | runtime |
 | media-typer | 1.1.1 | runtime |
@@ -314,7 +313,6 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | node-gyp-build | 4.8.4 | runtime |
 | object-assign | 4.1.1 | runtime |
 | object-inspect | 1.13.4 | runtime |
-| obug | 2.2.1 | dev |
 | obug | 3.0.0 | dev |
 | on-exit-leak-free | 2.1.2 | runtime |
 | on-finished | 2.4.1 | runtime |
@@ -395,7 +393,6 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | strip-ansi | 6.0.1 | runtime |
 | styled-jsx | 5.1.6 | runtime |
 | thread-stream | 4.2.0 | runtime |
-| tinybench | 6.2.1 | dev |
 | tinybench | 6.2.5 | dev |
 | tinyexec | 1.3.1 | dev |
 | tinyglobby | 0.2.17 | dev |
@@ -416,14 +413,12 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | vary | 1.1.2 | runtime |
 | vite | 8.3.4 | dev |
 | vite | 8.3.8 | dev |
-| vitest | 5.0.3 | dev |
 | vitest | 5.1.1 | dev |
 | w3c-xmlserializer | 6.0.0 | dev |
 | whatwg-mimetype | 5.0.0 | dev |
 | whatwg-url | 17.2.0 | dev |
 | why-is-node-running | 3.2.1 | dev |
 | wrap-ansi | 6.2.0 | runtime |
-| ws | 8.22.0 | dev |
 | ws | 8.23.0 | runtime |
 | xmlchars | 2.2.0 | dev |
 | yargs | 15.4.1 | runtime |
@@ -493,14 +488,14 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 
 | Package | Version | Kind |
 | --- | --- | --- |
-| @playwright/test | 1.64.0 | dev |
+| @playwright/test | 1.65.1 | dev |
 | @swc/helpers | 0.5.23 | runtime |
 | aria-query | 5.3.0 | dev |
 | baseline-browser-mapping | 2.11.39 | runtime |
 | detect-libc | 2.1.2 | dev |
 | expect-type | 1.4.0 | dev |
-| playwright | 1.64.0 | dev |
-| playwright-core | 1.64.0 | dev |
+| playwright | 1.65.1 | dev |
+| playwright-core | 1.65.1 | dev |
 | reflect-metadata | 0.2.2 | runtime |
 | typescript | 5.9.3 | dev |
 | xml-name-validator | 5.0.0 | dev |
