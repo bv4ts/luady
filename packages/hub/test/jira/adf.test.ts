@@ -60,6 +60,21 @@ describe('adfToMarkdown', () => {
     expect(md).toBe('| Name | Value |\n| --- | --- |\n| a\\|b | 2 |');
   });
 
+  it('a backslash from raw Jira text (code, an emoji, a card) cannot free a pipe and end the cell', () => {
+    const row = (...inline: unknown[]) => adfToMarkdown(doc({ type: 'table', content: [
+      { type: 'tableRow', content: [{ type: 'tableCell', content: [p(...inline)] }, { type: 'tableCell', content: [p(t('2'))] }] },
+    ] })).split('\n')[0];
+    // An odd number of backslashes before a pipe escapes it already; `\\|` would be a backslash and a bare pipe.
+    expect(row(t('a\\|b', { type: 'code' }))).toBe('| `a\\|b` | 2 |');
+    expect(row({ type: 'emoji', attrs: { text: '\\' } }, t('|forged'))).toBe('| \\|forged | 2 |');
+    expect(row({ type: 'inlineCard', attrs: { url: 'https://example.com/a\\|b' } })).toBe('| <https://example.com/a\\|b> | 2 |');
+    // Escaped text keeps its pairs of backslashes, and its pipes get one more, as before.
+    expect(row(t('a\\|b'))).toBe('| a\\\\\\|b | 2 |');
+    expect(row(t('a\\\\|b', { type: 'code' }))).toBe('| `a\\\\\\|b` | 2 |');
+    const slashes = { type: 'tableCell', content: [p(t(`${'\\'.repeat(200_000)}|`, { type: 'code' }))] };
+    expect(elapsedMs(() => adfToMarkdown(doc({ type: 'table', content: [{ type: 'tableRow', content: [slashes] }] })))).toBeLessThan(HOSTILE_INPUT_BUDGET_MS);
+  });
+
   it('an unknown node becomes its text; plain text that looks like Markdown is escaped', () => {
     const md = adfToMarkdown(doc(
       { type: 'futureThing', content: [t('Kept text')] },

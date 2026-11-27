@@ -130,11 +130,19 @@ function list(node: AdfNode, ordered: boolean, depth: number): string {
     .join('\n');
 }
 
+/**
+ * Every `|` in a cell's Markdown escaped, so no pipe from Jira can end the cell. A pipe is bare when an even number of
+ * backslashes stands before it (escaped text always has an even number); raw text (code, an emoji, a card's address)
+ * can bring an odd number, and that pipe is escaped already: one more backslash would pair with them and free it.
+ */
+const escapeCellPipes = (text: string): string =>
+  text.replace(/\\+\|?|\|/g, (run) => (run.endsWith('|') && run.length % 2 === 1 ? `${run.slice(0, -1)}\\|` : run));
+
 function cellText(cell: AdfNode, depth: number): string {
   const text = children(cell).map((child) => block(child, depth + 1)).join(' ');
   // One line per cell: split and trim (linear), not a `\s*\n\s*` pattern that rescans a long run of spaces.
   const flat = text.split('\n').map((line) => line.trim()).filter((line) => line !== '').join(' ');
-  return flat.replace(/\|/g, '\\|').trim();
+  return escapeCellPipes(flat).trim();
 }
 
 function table(node: AdfNode, depth: number): string {
