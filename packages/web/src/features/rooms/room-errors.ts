@@ -28,6 +28,9 @@ const WORDS: Readonly<Record<string, string>> = Object.freeze({
   invalid_request: 'Some of the fields need a fix. Check the marked fields and try again.',
 });
 
+/** The hub's sentence and what to do next, with one full stop between them (the sentence may end with its own). */
+const withNextStep = (sentence: string): string => `${sentence.endsWith('.') ? sentence.slice(0, -1) : sentence}. Change it and try again.`;
+
 /** What a failed room write says to the owner. */
 export function roomProblem(err: unknown): RoomProblem {
   if (isApiError(err)) {
@@ -35,7 +38,7 @@ export function roomProblem(err: unknown): RoomProblem {
     if (words !== undefined) return { text: words, stale: err.code === 'room_conflict' };
     if (err.status === 404) return { text: WORDS.not_found ?? '', stale: false };
     // The hub's own check failed (a rule the form did not catch): its sentence is plain words already.
-    if (err.code === 'validation') return { text: `${err.message}. Change it and try again.`.replace('..', '.'), stale: false };
+    if (err.code === 'validation') return { text: withNextStep(err.message), stale: false };
   }
   return { text: userMessage(err), stale: false };
 }

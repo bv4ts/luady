@@ -126,4 +126,15 @@ describe('refusals in plain words', () => {
     expect(problem.text).not.toContain(code);
     expect(problem.stale).toBe(code === 'room_conflict');
   });
+
+  it('a hub check keeps its sentence as written and adds what to do, with one full stop', () => {
+    const say = (message: string) => roomProblem(new ApiError(400, 'validation', message)).text;
+    expect(say('A room name needs 1-40 characters')).toBe('A room name needs 1-40 characters. Change it and try again.');
+    expect(say('A room name needs 1-40 characters.')).toBe('A room name needs 1-40 characters. Change it and try again.');
+    // The owner's own text in the sentence (a path with "..") is shown exactly as typed.
+    expect(say('/home/dev/projects/../etc is outside the projects folder /home/dev/projects'))
+      .toBe('/home/dev/projects/../etc is outside the projects folder /home/dev/projects. Change it and try again.');
+    expect(say('Not a name match: "a..b/" (letters, digits, . _ - * ?).'))
+      .toBe('Not a name match: "a..b/" (letters, digits, . _ - * ?). Change it and try again.');
+  });
 });
