@@ -1,0 +1,27 @@
+{
+  "session_id": "SESSION_ID",
+  "transcript_path": "<transcript>",
+  "cwd": "<cwd>",
+  "scratchpad_dir": "<scratchpad>",
+  "prompt_id": "PROMPT_ID",
+  "permission_mode": "bypassPermissions",
+  "effort": {
+    "level": "medium"
+  },
+  "hook_event_name": "PostToolUse",
+  "tool_name": "WebFetch",
+  "tool_input": {
+    "url": "https://example.com",
+    "prompt": "<text>"
+  },
+  "tool_response": {
+    "bytes": 577,
+    "code": 200,
+    "codeText": "OK",
+    "result": "<text>",
+    "durationMs": 908,
+    "url": "https://example.com"
+  },
+  "tool_use_id": "TOOL_USE_ID",
+  "duration_ms": 909
+}

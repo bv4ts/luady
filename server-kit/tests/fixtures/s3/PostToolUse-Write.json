@@ -1,0 +1,27 @@
+{
+  "session_id": "SESSION_ID",
+  "transcript_path": "<transcript>",
+  "cwd": "<cwd>",
+  "scratchpad_dir": "<scratchpad>",
+  "prompt_id": "PROMPT_ID",
+  "permission_mode": "bypassPermissions",
+  "effort": {
+    "level": "medium"
+  },
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Write",
+  "tool_input": {
+    "file_path": "<cwd>/notes.txt",
+    "content": "<text>"
+  },
+  "tool_response": {
+    "type": "create",
+    "filePath": "<cwd>/notes.txt",
+    "content": "<text>",
+    "structuredPatch": [],
+    "originalFile": null,
+    "userModified": false
+  },
+  "tool_use_id": "TOOL_USE_ID",
+  "duration_ms": 161
+}

@@ -1,0 +1,8 @@
+{
+  "name": "sharp",
+  "version": "0.0.0-luady-site",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "Stands in for sharp, Next.js's optional image library: the site turns image optimisation off, so sharp and its LGPL image libraries are never needed.",
+  "main": "index.js"
+}

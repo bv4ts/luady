@@ -1,0 +1,13 @@
+/* Channels and add-ons: panels are data, drawn with these classes only. */
+.channel-card { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3); border-radius: var(--radius-lg); border: 1px solid var(--color-border); }
+.channel-panel { display: flex; flex-direction: column; gap: var(--space-2); }
+.channel-panel__text { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.channel-panel__code { margin: 0; padding: var(--space-2); border-radius: var(--radius-md); overflow-x: auto; user-select: all; }
+.channel-qr { display: flex; flex-direction: column; align-items: center; margin: 0; padding: var(--space-3); border-radius: var(--radius-lg); background: #ffffff; color: #1a1d1f; }
+.channel-qr__canvas { width: min(15rem, 70vw); height: auto; aspect-ratio: 1; image-rendering: pixelated; }
+.channel-qr .form-error { color: #8a1a12; }
+.channel-input { display: flex; flex-direction: column; gap: var(--space-2); }
+.channel-input textarea { width: 100%; font: inherit; }
+.channel-connect { justify-content: space-between; }
+.channels-none p { margin: 0 0 var(--space-2); }
+.notice-file { display: inline-flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }

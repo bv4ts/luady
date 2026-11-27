@@ -1,0 +1,227 @@
+/*
+ * Speech over the map: white paper with a 2px ink edge and stepped pixel corners, like the status bubbles the map
+ * draws, and a stepped tail that points at the character. Script writes each node's transform, --tail-x (where the
+ * tail meets the box) and --speech-room (the height the box may take before it scrolls).
+ */
+.agency-speech {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.speech,
+.speech-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: auto;
+  will-change: transform;
+}
+.speech[hidden],
+.speech-mark[hidden] { display: none; }
+
+.speech {
+  --stepped-4: polygon(4px 0, calc(100% - 4px) 0, calc(100% - 4px) 2px, calc(100% - 2px) 2px, calc(100% - 2px) 4px, 100% 4px,
+    100% calc(100% - 4px), calc(100% - 2px) calc(100% - 4px), calc(100% - 2px) calc(100% - 2px), calc(100% - 4px) calc(100% - 2px),
+    calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 2px), 2px calc(100% - 2px), 2px calc(100% - 4px), 0 calc(100% - 4px), 0 4px, 2px 4px,
+    2px 2px, 4px 2px);
+  --stepped-2: polygon(2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px),
+    calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px), 0 2px, 2px 2px);
+  width: 180px;
+  color: var(--agency-paper-ink);
+  /* A hard pixel shadow; a filter on the parent still shows round the clipped box. */
+  filter: drop-shadow(0 3px 0 rgb(4 2 12 / 0.55));
+}
+.speech[data-size='room'] { width: 260px; }
+
+.speech__box {
+  position: relative;
+  isolation: isolate;
+  padding: 6px 9px 7px;
+  background: var(--agency-paper-line);
+  clip-path: var(--stepped-4);
+  font-size: 0.8125rem;
+  line-height: 1.385;
+}
+.speech__box::before {
+  position: absolute;
+  inset: 2px;
+  z-index: -1;
+  background: var(--agency-paper);
+  clip-path: var(--stepped-2);
+  content: '';
+}
+
+/* The tail: ink steps with a paper core, overlapping the box's bottom edge so the two read as one shape. */
+.speech__tail {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: calc(var(--tail-x, 50%) - 5px);
+  width: 10px;
+  height: 8px;
+  background: var(--agency-paper-line);
+  clip-path: polygon(0 0, 10px 0, 10px 2px, 8px 2px, 8px 4px, 6px 4px, 6px 8px, 4px 8px, 4px 4px, 2px 4px, 2px 2px, 0 2px);
+}
+.speech__tail::before {
+  position: absolute;
+  inset: 0;
+  background: var(--agency-paper);
+  clip-path: polygon(2px 0, 8px 0, 8px 2px, 6px 2px, 6px 4px, 4px 4px, 4px 2px, 2px 2px);
+  content: '';
+}
+.speech[data-below='true'] .speech__tail { top: auto; bottom: calc(100% - 2px); transform: scaleY(-1); }
+
+.speech__head { display: flex; align-items: center; gap: 6px; min-height: 18px; margin: 0 0 2px; }
+.speech__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--agency-font-pixel);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.speech__name::before { flex: none; width: 6px; height: 6px; background: var(--team, var(--agency-teal)); content: ''; }
+.speech__kind { padding: 0 4px; border: 1px solid currentColor; border-radius: 2px; font-size: 0.625rem; font-weight: var(--weight-bold); opacity: 0.75; }
+.speech__close {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin: -3px -5px -3px auto;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: inherit;
+  opacity: 0.6;
+}
+.speech__close .icon { width: 14px; height: 14px; }
+.speech__close:hover { background: rgb(34 28 56 / 0.08); opacity: 1; }
+
+/* Markdown on paper: ink text, compact blocks, code on a light inset. */
+.speech__text { overflow: hidden; color: var(--agency-paper-ink); line-height: 1.385; overflow-wrap: anywhere; }
+.speech__text.prose > * + * { margin-top: 4px; }
+.speech__text.prose :is(h1, h2, h3, h4) { font-size: inherit; }
+.speech .speech__text.prose code { padding: 0 0.3em; border: 0; border-radius: 2px; background: #efe6d2; color: #4a2c00; }
+.speech .speech__text.prose pre { padding: 4px 6px; border: 0; background: #efe6d2; color: #3a2400; white-space: pre-wrap; }
+.speech .speech__text.prose pre code { background: none; }
+.speech .speech__text.prose a { color: #0b5f55; }
+.speech__text.prose blockquote { border-inline-start-color: #b9ad92; color: #4b4366; }
+
+/* Agents: two lines in the whole-office view, six in a room; "More" opens it to be read in full. */
+.speech--agent .speech__text { max-height: calc(2 * 1.385em); }
+.speech--agent[data-size='room'] .speech__text { max-height: calc(6 * 1.385em); }
+.speech--agent[data-expanded='true'] { width: 320px; }
+.speech--agent[data-expanded='true'] .speech__text {
+  max-height: max(4em, calc(var(--speech-room, 240px) - 64px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.speech__actions { display: flex; flex-wrap: wrap; gap: 4px; margin: 5px 0 0; }
+.speech__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 22px;
+  padding: 0 6px;
+  border: 1px solid rgb(34 28 56 / 0.35);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--agency-paper-ink);
+  font-size: 0.6875rem;
+  font-weight: var(--weight-semibold);
+}
+.speech__btn:hover { border-color: var(--agency-paper-ink); background: #f3ead6; }
+.speech__btn:disabled { opacity: 0.5; }
+.speech__more { display: none; }
+.speech[data-long='both'] .speech__more,
+.speech[data-size='office'][data-long='office'] .speech__more { display: inline-flex; }
+.speech :focus-visible { outline: 2px solid #b26a00; outline-offset: 1px; }
+
+/* Luady's answer: his whole text, up to 360px wide, scrolling inside when it is long. Never cut, never dots. */
+.speech--luady { width: min(360px, calc(100vw - 32px)); }
+.speech--luady .speech__box { padding: 8px 11px 10px; font-size: 0.875rem; }
+.speech--luady .speech__name { color: #0b6e63; font-size: 0.875rem; }
+.speech--luady .speech__name::before { background: #0b6e63; }
+.speech__scroll {
+  max-height: max(4.5em, calc(var(--speech-room, 320px) - 40px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: #b9ad92 transparent;
+  scrollbar-width: thin;
+}
+.speech__scroll:focus-visible { outline-offset: -2px; }
+
+/* Luady's small pops: "New message", signed out or offline, and typing. */
+.speech--pop,
+.speech--typing { width: max-content; }
+.speech--note { width: 220px; }
+.speech--pop .speech__box,
+.speech--note .speech__box,
+.speech--typing .speech__box { display: flex; align-items: center; gap: 6px; padding: 5px 9px 6px; }
+.speech--pop .speech__box { font-family: var(--agency-font-pixel); font-size: 0.8125rem; font-weight: 600; }
+.speech--pop .pixel-icon { color: #b26a00; }
+.speech--note .speech__box { font-size: 0.75rem; font-weight: var(--weight-semibold); line-height: 1.3; }
+.speech--typing .speech__box { min-width: 46px; padding: 8px 11px 9px; }
+.speech__dots { display: inline-flex; gap: 4px; }
+.speech__dots i { width: 5px; height: 5px; background: var(--agency-paper-ink); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .speech--agent,
+  .speech--luady,
+  .speech--pop,
+  .speech--note,
+  .speech--typing { animation: speech-pop 180ms cubic-bezier(0.2, 0.9, 0.3, 1.2); }
+  .speech__dots i { animation: speech-dot 0.9s steps(2, jump-none) infinite; }
+  .speech__dots i:nth-child(2) { animation-delay: 0.15s; }
+  .speech__dots i:nth-child(3) { animation-delay: 0.3s; }
+}
+/* `translate` is separate from the script's `transform`, so the pop does not fight the placement. */
+@keyframes speech-pop { from { opacity: 0; translate: 0 6px; } to { opacity: 1; translate: 0 0; } }
+@keyframes speech-dot { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+/* Reduced motion: the dots stand still but are three different greys, so they read as "in progress", not as text. */
+@media (prefers-reduced-motion: reduce) {
+  .speech__dots i:nth-child(2) { opacity: 0.6; }
+  .speech__dots i:nth-child(3) { opacity: 0.3; }
+}
+
+/* A folded bubble: a small paper mark over the character; pointing at it or tapping it shows the words again. */
+.speech-mark {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 20px;
+  padding: 0;
+  border: 2px solid var(--agency-paper-line);
+  border-radius: 3px;
+  background: var(--agency-paper);
+  color: var(--agency-paper-ink);
+  box-shadow: 0 2px 0 rgb(4 2 12 / 0.5);
+}
+.speech-mark:hover { background: #fff1cf; }
+
+/* The envelope that flies from the chat line to Luady. */
+.speech-envelope {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 7;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 22px;
+  border: 2px solid var(--agency-paper-line);
+  border-radius: 2px;
+  background: var(--agency-paper);
+  color: #b26a00;
+  pointer-events: none;
+}
+.speech-envelope[hidden] { display: none; }

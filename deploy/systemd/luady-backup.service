@@ -1,0 +1,19 @@
+# Daily Luady backup (SQLite online backup + brain tarball, keep 14). Triggered by luady-backup.timer.
+# Installed by deploy/provision.sh, which embeds a byte-identical copy (tests enforce it).
+[Unit]
+Description=Luady daily backup (database + brain, keep 14)
+ConditionPathExists=/home/luady/app/current/deploy/backup.sh
+
+[Service]
+Type=oneshot
+User=luady
+Group=luady
+Environment=LUADY_HOME=/home/luady
+ExecStart=/bin/bash /home/luady/app/current/deploy/backup.sh
+Nice=10
+IOSchedulingClass=idle
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=full
+ReadWritePaths=/home/luady
+UMask=0077

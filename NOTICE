@@ -1,0 +1,117 @@
+Luady
+Copyright 2026 The Luady Authors
+
+This product includes software developed by The Luady Authors
+(https://github.com/bv4ts/luady).
+
+Luady is licensed under the Apache License, Version 2.0. See the LICENSE file.
+
+This NOTICE file only carries attributions. It does not change the terms of
+the LICENSE.
+
+===============================================================================
+Third-party notices
+===============================================================================
+
+-------------------------------------------------------------------------------
+1. Fonts, SIL Open Font License 1.1
+-------------------------------------------------------------------------------
+Pixelify Sans
+  Copyright 2021 The Pixelify Sans Project Authors
+  (https://github.com/eifetx/Pixelify-Sans)
+  The web interface bundles the Pixelify Sans font files as packaged by
+  Fontsource (npm package @fontsource/pixelify-sans, version 5.3.0).
+  The licence text is in licenses/PixelifySans-OFL.txt, copied unchanged from
+  that package. The built website carries the same file beside the font files
+  (assets/PixelifySans-OFL.txt, from packages/web/public/assets/); copies of the
+  built website must keep it with them. The project's public website (site/)
+  serves the same font from site/fonts/pixelify-sans/, with its licence text
+  beside it (OFL.txt); its pixel art is Luady's own, drawn by packages/office.
+
+Instrument Sans
+  Copyright 2022 The Instrument Sans Project Authors
+  (https://github.com/Instrument/instrument-sans)
+  Used for text in the project's artwork. No Instrument Sans font file is
+  part of the web interface. Its licence text is kept in
+  licenses/InstrumentSans-OFL.txt, so that it travels with any copy of the
+  site or documents that does bundle the font.
+
+Both fonts are licensed under the SIL Open Font License, Version 1.1, whose
+text is in the files named above. The fonts may not be sold by themselves.
+
+-------------------------------------------------------------------------------
+2. Vendored skill packs, MIT License
+-------------------------------------------------------------------------------
+Each folder below keeps its upstream LICENSE file, which names the copyright
+holder. Do not remove it.
+
+2.1 brain/skills/prompt-master/
+    Origin: https://github.com/nidhinjs/prompt-master, commit 49b3a72
+    (as stated in brain/README.md).
+
+2.2 brain/skills/prompt-engineering-patterns/
+    Origin: https://github.com/wshobson/agents, commit 0874a27, path
+    plugins/llm-application-dev/skills/prompt-engineering-patterns
+    (as stated in brain/README.md). Includes scripts/optimize-prompt.py,
+    which imports numpy (BSD-3-Clause; not bundled).
+
+2.3 brain/skills/cc-prompt/ is Luady's own skill. Its description says it is
+    distilled from the two packs above, and it is covered by their MIT
+    licences as far as it carries over their text.
+
+2.4 brain/skills/image-prompt/ is Luady's own skill, written by The Luady
+    Authors. It carries no third-party text and is licensed like the rest of
+    Luady.
+
+-------------------------------------------------------------------------------
+3. Dual-licensed dependencies: the licence Luady elects
+-------------------------------------------------------------------------------
+dompurify is available under (MPL-2.0 OR Apache-2.0). Luady uses it under the
+Apache License, Version 2.0. Its bundle header reads "(c) Cure53 and other
+contributors".
+
+@zone-eu/mailsplit is available under (MIT OR EUPL-1.1+). Luady uses it under
+the MIT License. The package's LICENSE.MIT names the copyright holders.
+
+-------------------------------------------------------------------------------
+4. Code bundled inside npm packages the hub depends on
+-------------------------------------------------------------------------------
+better-sqlite3 bundles the SQLite amalgamation (public domain).
+argon2 bundles the Argon2 reference implementation, available under
+(CC0-1.0 OR Apache-2.0) at the user's option; its licence file is
+argon2/argon2/LICENSE inside the npm package.
+
+-------------------------------------------------------------------------------
+5. Artwork
+-------------------------------------------------------------------------------
+The pixel-art character sprite sheet
+(packages/web/src/features/agency/assets/characters.png) was generated with an
+AI image model (OpenAI, through the Codex CLI), then converted to a sprite
+atlas and patched by hand by The Luady Authors.
+
+The banner and the social card under .github/assets/ (banner.png,
+banner@1x.png, social-card.png) were made the same way: generated with an AI
+image model, then edited by hand by The Luady Authors.
+
+The logo (.github/assets/logo-*.png, site/public/favicon.ico, apple-touch-icon.png
+and brand/, packages/web/public/icon.svg and icon-maskable.svg, and the
+pixel rows in packages/web/src/ui/BrandMark.tsx) was chosen from pictures made
+with an AI image model, using the project's own art as reference, then redrawn
+pixel by pixel as explicit pixel data, with an AI coding assistant. No pixel was
+resampled from those pictures.
+
+Purely machine-generated images may not be protected by copyright in some
+jurisdictions, so this file makes no claim of exclusive rights over them.
+
+-------------------------------------------------------------------------------
+6. npm dependencies (MIT, ISC, BSD-2-Clause, BSD-3-Clause, Apache-2.0, others)
+-------------------------------------------------------------------------------
+Dependencies are distributed under their own licences, which require their
+copyright notices and licence texts to travel with copies. Those stay inside
+the packages that npm installs. THIRD_PARTY_LICENSES.md lists every package
+with its licence, grouped by licence. It is generated from the lockfiles by
+
+    npm run licence:check
+
+which also fails on a GPL, LGPL, AGPL or SSPL licence, or on a missing one.
+Release archives carry this file, NOTICE, LICENSE and the licenses/ folder.

@@ -1,0 +1,162 @@
+/*
+ * The docs: a side menu, a reading column of about 70 characters, and the Markdown's own parts (code, tables,
+ * callouts, figures) in the office's look. Code never breaks in the middle of a chip: short chips stay on one line,
+ * long commands wrap only at their spaces, and a long path without spaces scrolls inside its chip.
+ */
+.shell {
+  display: grid;
+  grid-template-columns: 15.5rem minmax(0, 1fr);
+  width: min(100% - 2 * var(--gutter), 82rem);
+  margin-inline: auto;
+}
+.side { padding: 1.75rem 1.5rem 2rem 0; }
+.side__fold { display: none; }
+.side__fixed { position: sticky; top: calc(var(--bar-h) + 1.5rem); max-height: calc(100vh - var(--bar-h) - 3rem); overflow-y: auto; }
+.page { min-width: 0; max-width: 48rem; padding: 2.25rem 0 4rem 2rem; }
+.page:focus { outline: none; }
+
+.menu, .menu ul { margin: 0; padding: 0; list-style: none; }
+.menu__group + .menu__group { margin-top: 1.4rem; }
+.menu__heading { display: block; margin-bottom: 0.35rem; color: var(--lamp); font-family: var(--font-display); font-size: 0.95rem; }
+.menu a {
+  display: block;
+  padding: 0.32rem 0.65rem;
+  border-left: 3px solid transparent;
+  color: var(--dim);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.menu a:hover { background: var(--dusk); color: var(--cream); }
+.menu a[aria-current='page'] { border-left-color: var(--teal); background: var(--dusk-2); color: var(--cream); font-weight: 600; }
+
+/* ---- reading ---- */
+.prose { max-width: 46rem; }
+.prose > :first-child { margin-top: 0; }
+.prose h1 { margin: 0 0 1.1rem; font-size: clamp(2rem, 1.6rem + 1.4vw, 2.6rem); }
+.prose h2 { margin: 2.75rem 0 0.8rem; padding-bottom: 0.35rem; border-bottom: 2px solid var(--line); font-size: 1.65rem; }
+.prose h3 { margin: 2rem 0 0.55rem; color: var(--teal-hi); font-size: 1.28rem; }
+.prose h4 { margin: 1.5rem 0 0.4rem; color: var(--dim); font-size: 1.08rem; }
+.prose p, .prose ul, .prose ol { margin: 0 0 1rem; }
+.prose ul, .prose ol { padding-left: 1.4rem; }
+.prose li + li { margin-top: 0.3rem; }
+.prose li::marker { color: var(--lamp); }
+.prose strong { color: var(--cream); }
+.prose hr { margin: 2.5rem 0; border: 0; border-top: 2px dashed var(--line); }
+
+/* The # link after a heading, for linking to a section; shown on hover and keyboard focus. */
+.heading-anchor { margin-left: 0.35rem; color: var(--subtle); font-family: var(--font-sans); font-size: 0.8em; text-decoration: none; opacity: 0; }
+.prose :is(h2, h3, h4):hover .heading-anchor, .heading-anchor:focus-visible { opacity: 1; }
+.heading-anchor:hover { color: var(--teal-hi); }
+
+/* "On this page", for long pages. */
+.toc { margin: 0 0 2rem; padding: 0.9rem 1.1rem 1rem; border: 2px solid var(--line); border-left: 6px solid var(--teal); background: var(--dusk); }
+.toc__title { margin: 0 0 0.4rem; color: var(--cream); font-family: var(--font-display); font-weight: 600; }
+.toc ul { margin: 0; padding: 0; list-style: none; columns: 2 14rem; column-gap: 2rem; }
+.toc li { margin: 0 0 0.25rem; break-inside: avoid; }
+.toc a { text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+
+/* Code chips: a short one never wraps; a long command wraps only at its spaces, each line keeping the chip; a long
+   path with no spaces scrolls sideways inside its chip instead of breaking. */
+.prose :not(pre) > code { white-space: nowrap; }
+.prose :not(pre) > code.code-long { white-space: normal; overflow-wrap: normal; word-break: keep-all; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.prose :not(pre) > code.code-scroll { display: inline-block; max-width: 100%; overflow-x: auto; vertical-align: bottom; scrollbar-width: thin; }
+
+.prose .codeblock { position: relative; margin: 0 0 1.25rem; }
+.prose pre {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  padding-right: 5rem;
+  overflow-x: auto;
+  border: 2px solid var(--line);
+  border-left: 6px solid var(--teal);
+  background: var(--deep);
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.45);
+  line-height: 1.55;
+}
+.prose pre code { color: var(--text); font-size: 0.9rem; }
+.codeblock__copy {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  min-height: 2rem;
+  padding: 0.15rem 0.6rem;
+  border: 2px solid var(--line-strong);
+  background: var(--dusk);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.codeblock__copy:hover { border-color: var(--teal); color: var(--teal-hi); }
+
+.prose img { display: block; max-width: 100%; height: auto; margin: 1.25rem 0 0.5rem; border: 2px solid var(--line); box-shadow: 0 3px 0 var(--deep); }
+.prose picture img { margin-bottom: 0.5rem; }
+.prose figure { margin: 1.5rem 0; }
+.prose figure img { margin: 0 0 0.5rem; }
+.prose figcaption, .prose .caption { color: var(--subtle); font-size: 0.92rem; }
+.prose .caption sub { font-size: inherit; vertical-align: baseline; }
+
+/* Tables: they never squeeze their text column to a few words. Two columns become stacked rows on a phone; three or
+   more keep their width and scroll sideways. */
+.table-wrap { margin: 0 0 1.25rem; overflow-x: auto; border: 2px solid var(--line); }
+.prose table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.table-wrap--scroll table { min-width: 34rem; }
+.prose th, .prose td { padding: 0.55rem 0.75rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.prose th { background: var(--dusk-2); color: var(--cream); font-family: var(--font-display); font-weight: 600; }
+.prose tr:last-child td { border-bottom: 0; }
+.prose td { background: rgb(27 23 49 / 0.6); }
+.prose td code, .prose th code { white-space: nowrap; }
+@media (max-width: 34rem) {
+  .table-wrap--stack { overflow: visible; }
+  .table-wrap--stack :is(table, thead, tbody, tr, th, td) { display: block; }
+  .table-wrap--stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .table-wrap--stack td { border-bottom: 0; }
+  .table-wrap--stack td:first-child { padding-bottom: 0.15rem; color: var(--cream); font-weight: 600; }
+  .table-wrap--stack td:last-child { padding-top: 0.15rem; }
+  .table-wrap--stack tr + tr { border-top: 1px solid var(--line); }
+  .table-wrap--stack td code.code-long { white-space: normal; }
+}
+
+.prose blockquote { margin: 0 0 1.25rem; padding: 0.75rem 1rem; border: 2px solid var(--line); border-left: 6px solid var(--line-strong); background: var(--dusk); color: var(--dim); }
+.prose blockquote > :last-child { margin-bottom: 0; }
+.prose .callout { color: var(--text); }
+.callout__title { font-family: var(--font-display); }
+.prose .callout--note, .prose .callout--tip { border-left-color: var(--teal); }
+.callout--note .callout__title, .callout--tip .callout__title { color: var(--teal-hi); }
+.prose .callout--important, .prose .callout--warning { border-left-color: var(--lamp); }
+.callout--important .callout__title, .callout--warning .callout__title { color: var(--lamp); }
+.prose .callout--caution { border-left-color: var(--red); }
+.callout--caution .callout__title { color: var(--red); }
+
+.prose kbd { padding: 0.05em 0.4em; border: 2px solid var(--line-strong); border-bottom-width: 3px; background: var(--dusk-2); font-size: 0.85em; }
+
+/* ---- page end ---- */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; max-width: 46rem; margin-top: 3rem; }
+.pager a { display: block; padding: 0.75rem 0.95rem; border: 2px solid var(--line); background: var(--dusk); box-shadow: 0 var(--step) 0 var(--deep); color: var(--cream); font-family: var(--font-display); font-size: 1.05rem; text-decoration: none; }
+.pager a:hover { border-color: var(--teal); }
+.pager span { display: block; color: var(--subtle); font-family: var(--font-sans); font-size: 0.82rem; }
+.pager__next { text-align: right; }
+.page__edit { max-width: 46rem; margin: 1.5rem 0 0; font-size: 0.92rem; }
+
+/* ---- narrow windows and phones ---- */
+@media (max-width: 60rem) {
+  .shell { display: block; }
+  .side { padding: 1rem 0 0; }
+  .side__fixed { display: none; }
+  .side__fold { display: block; border: 2px solid var(--line); background: var(--dusk); }
+  .side__fold summary { min-height: 2.75rem; padding: 0.55rem 0.9rem; color: var(--cream); font-family: var(--font-display); cursor: pointer; }
+  .side__fold[open] summary { border-bottom: 2px solid var(--line); }
+  .side__fold .menu { padding: 0.75rem 0.5rem 1rem; }
+  .page { padding: 1.5rem 0 3rem; }
+}
+@media (max-width: 34rem) {
+  .pager { grid-template-columns: 1fr; }
+  .pager__next { text-align: left; }
+  .prose pre { padding-right: 1rem; padding-top: 2.6rem; }
+}
+@media print {
+  .side, .pager, .page__edit, .codeblock__copy, .toc { display: none; }
+  .shell { display: block; }
+}

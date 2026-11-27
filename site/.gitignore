@@ -1,0 +1,6 @@
+# Next.js writes these while it builds; site/dist (the export) is ignored by the root .gitignore.
+.next/
+/dist-*/
+next-env.d.ts
+# Copied in from docs/assets/ by build.mjs before every build, so the pictures have one home: docs/assets/.
+/public/assets/

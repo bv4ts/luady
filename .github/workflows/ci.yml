@@ -1,0 +1,189 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  # Lets a maintainer run the checks by hand on any branch, and the browser suite with them when asked.
+  workflow_dispatch:
+    inputs:
+      e2e:
+        type: boolean
+        default: false
+        description: 'Also run the browser suite (slow; needs a machine with a graphics card to pass fully)'
+
+permissions:
+  contents: read
+
+# Superseded pull request runs are cancelled. A run on main is never cancelled by a later push.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build-and-test:
+    name: Build, typecheck, test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Typecheck (runs the literal gate first)
+        run: npm run typecheck
+
+      - name: Typecheck the preview
+        run: npm run typecheck:preview
+
+      - name: Unit tests of every workspace
+        run: npm test
+
+      - name: Preview tests
+        run: npm run test:preview
+
+      - name: Script tests
+        run: npm run test:scripts
+
+      - name: Licence check
+        run: npm run licence:check
+
+      # A dependency update changes the generated list, and the bot that opens such pull requests cannot regenerate
+      # it. So a stale list is only a warning here; the release workflow refuses to release with a stale list.
+      - name: THIRD_PARTY_LICENSES.md is up to date (warning only)
+        run: |
+          if ! git diff --exit-code -- THIRD_PARTY_LICENSES.md > /dev/null; then
+            echo "::warning file=THIRD_PARTY_LICENSES.md::The licence list is out of date. Run 'npm run licence:check' and commit the result before the next release."
+            git checkout -- THIRD_PARTY_LICENSES.md
+          fi
+
+  site:
+    name: Website (build, test, links)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install the site tools
+        run: npm ci --prefix site --ignore-scripts --no-audit --no-fund
+
+      - name: Build the website (for the root of a host)
+        run: npm run build --prefix site
+
+      # Builds it twice more into folders of its own (at the root and under a sub-path) and checks the pages.
+      - name: Test the website
+        run: npm test --prefix site
+
+      - name: Check every internal link
+        run: npm run check --prefix site
+
+  kit:
+    name: Server kit tests (Docker, ${{ matrix.python }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    # The kit's newest supported Python and its oldest (install.py and luady-ctl refuse anything below 3.10).
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python: Python 3.12
+            base: ubuntu:24.04
+          - python: Python 3.10
+            base: ubuntu:22.04
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run the kit tests
+        env:
+          BASE: ${{ matrix.base }}
+        run: |
+          docker build --build-arg "BASE=$BASE" -t luady-kit-test -f server-kit/Dockerfile.test server-kit
+          docker run --rm luady-kit-test
+
+  integration:
+    name: Integration tests (Docker)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            tests/integration/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run the integration tests
+        run: npm run test:integration
+
+  e2e:
+    name: End-to-end tests (Docker, Playwright)
+    runs-on: ubuntu-24.04
+    # Only when started by hand with the e2e input: a runner without a graphics card draws the office in software, so
+    # the canvas starves the page and the specs time out there. Run it on your own machine (npm run test:e2e).
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.e2e }}
+    # The full suite takes about a quarter of an hour on a fast machine, plus the image builds.
+    timeout-minutes: 60
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            tests/integration/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      # The browser with the system libraries it needs on a bare runner (npm run test:e2e then finds it installed).
+      - name: Install the browser with its system packages
+        run: |
+          npm --prefix tests/integration ci --no-audit --no-fund
+          npm --prefix tests/integration exec -- playwright install --with-deps chromium
+
+      - name: Run the end-to-end tests
+        run: npm run test:e2e

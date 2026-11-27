@@ -1,0 +1,4 @@
+# The root rule `dist/` would also hide the production-build checks.
+!/test/dist/
+# Screenshots taken from the development demo.
+/demo/shots/

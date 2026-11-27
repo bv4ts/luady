@@ -1,0 +1,39 @@
+# Luady hub: fleet, routing, web/API on 127.0.0.1:7410, internal API on /home/luady/run/hub.sock, brain supervisor.
+# Installed by deploy/provision.sh, which embeds a byte-identical copy (tests enforce it).
+[Unit]
+Description=Luady hub (fleet, router, web, internal API, brain supervisor)
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/home/luady/.config/luady/config.json
+ConditionPathExists=/home/luady/app/current/packages/hub/dist/main.js
+StartLimitIntervalSec=600
+StartLimitBurst=20
+
+[Service]
+Type=simple
+User=luady
+Group=luady
+WorkingDirectory=/home/luady/app/current
+Environment=NODE_ENV=production
+Environment=LUADY_CONFIG=/home/luady/.config/luady/config.json
+Environment=LUADY_SECRETS=/home/luady/.config/luady/secrets.env
+Environment=TMUX_TMPDIR=/home/luady/run
+Environment=TMPDIR=/home/luady/run/tmp
+Environment=PATH=/home/luady/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+ExecStart=/home/luady/.local/bin/node packages/hub/dist/main.js
+Restart=always
+RestartSec=5
+# Restarts stop only the node process. The brain's tmux server (socket under TMUX_TMPDIR, outside
+# PrivateTmp) keeps running, and the next hub process re-adopts it.
+KillMode=process
+TimeoutStopSec=20
+MemoryMax=2G
+CPUQuota=200%
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=full
+ReadWritePaths=/home/luady
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

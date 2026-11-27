@@ -1,0 +1,191 @@
+/*
+ * The first run: the office at dusk (the same values as the office page, features/agency/agency.css), pixel type for
+ * titles only, and the map's empty lots (a dashed outline with a glowing plus) for "Add this computer" and "Add a
+ * server". The site's tokens are re-pointed here so the shared components (.btn, .field, .banner, .badge, .switch) are
+ * dusk too, and so are the pop-ups the steps open (PIN prompt, dialogs, toasts).
+ */
+.setup-page,
+body:has(.setup-page) .toasts,
+body:has(.setup-page) .modal-backdrop {
+  --setup-void: #0d0b1a;
+  --setup-panel: #1b1731;
+  --setup-panel-2: #251f40;
+  --setup-line: #3a325e;
+  --setup-line-strong: #6b5f9c;
+  --setup-text: #f2edfb;
+  --setup-dim: #b6aed3;
+  --setup-subtle: #9a91bd;
+  --setup-amber: #ffc066;
+  --setup-teal: #44d1bd;
+  --setup-green: #7ddc8f;
+  --setup-violet: #c9b0ff;
+  --setup-ink-dark: #120f22;
+  --setup-shadow-hard: 0 3px 0 rgb(4 2 12 / 0.55);
+  --setup-font-pixel: 'Pixelify Sans', var(--font-sans);
+
+  color-scheme: dark;
+  --color-bg: var(--setup-void);
+  --color-surface: var(--setup-panel);
+  --color-surface-2: var(--setup-panel-2);
+  --color-surface-3: #30294f;
+  --color-border: var(--setup-line);
+  --color-border-strong: var(--setup-line-strong);
+  --color-text: var(--setup-text);
+  --color-text-muted: var(--setup-dim);
+  --color-text-subtle: var(--setup-subtle);
+  --color-accent: var(--setup-teal);
+  --color-accent-hover: #6fe0cf;
+  --color-accent-contrast: #062520;
+  --color-accent-soft: #143a3a;
+  --color-accent-strong: #8fe9dc;
+  --color-danger: #ff7a68;
+  --color-danger-contrast: #2a0805;
+  --color-danger-soft: #3d1a22;
+  --color-danger-strong: #ffc4bb;
+  --color-warn-soft: #3b2a17;
+  --color-warn-strong: #ffd9a8;
+  --color-badge: var(--setup-amber);
+  --color-badge-contrast: #1f1300;
+  --state-waiting-fg: #ffc27a;
+  --state-waiting-bg: #3b2a17;
+  --state-idle-fg: #8fdca8;
+  --state-idle-bg: #173226;
+  --state-error-fg: #ff9a90;
+  --state-error-bg: #3d1a22;
+  --state-ended-fg: #b0a9c8;
+  --state-ended-bg: #282340;
+  --state-starting-fg: #c9b0ff;
+  --state-starting-bg: #2c2150;
+  --shadow-2: 0 18px 44px rgb(4 2 12 / 0.6), 0 2px 8px rgb(4 2 12 / 0.45);
+  --overlay: rgb(8 6 18 / 0.62);
+}
+
+.setup-page {
+  min-height: 100dvh;
+  padding: var(--space-6) var(--space-4) var(--space-8);
+  background: radial-gradient(120% 60% at 50% 0%, #241c45 0%, transparent 65%), var(--setup-void);
+  color: var(--setup-text);
+}
+.setup-page :focus-visible { outline: 3px solid var(--setup-amber); outline-offset: 2px; }
+.setup-page__inner { display: grid; gap: var(--space-5); width: min(100%, 52rem); margin: 0 auto; min-width: 0; }
+
+.setup-head { display: flex; align-items: center; gap: var(--space-3); }
+.setup-head__name { font-family: var(--setup-font-pixel); font-size: 1.375rem; font-weight: 600; letter-spacing: 0.02em; }
+
+.setup-steps { display: grid; gap: var(--space-2); }
+.setup-steps__count { margin: 0; color: var(--setup-dim); font-size: var(--text-sm); }
+.setup-steps__list { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+.setup-steps__item {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--setup-line);
+  border-radius: 4px;
+  background: var(--setup-panel);
+  color: var(--setup-dim);
+  font-family: var(--setup-font-pixel);
+  font-size: 0.9375rem;
+}
+.setup-steps__inner { display: inline-flex; align-items: center; gap: 6px; min-height: 2.25rem; padding: 2px 10px; color: inherit; text-decoration: none; }
+a.setup-steps__inner:hover { color: var(--setup-text); text-decoration: underline; }
+.setup-steps__mark { min-width: 1ch; text-align: center; }
+.setup-steps__item.is-current { border-color: var(--setup-amber); color: var(--setup-text); box-shadow: var(--setup-shadow-hard); }
+.setup-steps__item.is-done .setup-steps__mark { color: var(--setup-green); }
+.setup-steps__item.is-skipped { border-style: dashed; }
+.setup-steps__note { font-family: var(--font-sans); font-size: var(--text-xs); }
+
+.setup-card {
+  min-width: 0;
+  padding: var(--space-6);
+  border: 2px solid var(--setup-line);
+  border-radius: 4px;
+  background: var(--setup-panel);
+  box-shadow: 0 4px 0 rgb(4 2 12 / 0.55);
+}
+.setup-card__title { margin: 0; font-family: var(--setup-font-pixel); font-size: 1.75rem; font-weight: 600; line-height: 1.2; }
+/* The heading takes the focus only so a new step is read from its top; it is not a control, so it draws no ring. */
+.setup-page .setup-card__title:focus,
+.setup-page .setup-card__title:focus-visible { outline: none; }
+.setup-card__intro { color: var(--setup-dim); }
+.setup-card__intro p { margin: 0; }
+
+.setup-choice { padding-top: var(--space-5); border-top: 2px dashed var(--color-border); }
+.setup-choice__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-family: var(--setup-font-pixel, var(--font-sans));
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.setup-tag {
+  padding: 1px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--setup-amber, var(--color-badge));
+  color: var(--setup-ink-dark, var(--color-badge-contrast));
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+
+/* The map's empty lot: a dashed outline on a faint checkerboard, with a glowing plus. */
+.setup-lots { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: var(--space-4); }
+.setup-lot {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: var(--space-2);
+  min-height: 11rem;
+  padding: var(--space-6) var(--space-4);
+  border: 3px dashed var(--color-border-strong);
+  border-radius: 4px;
+  background:
+    repeating-conic-gradient(rgb(255 255 255 / 0.035) 0 25%, transparent 0 50%) 0 0 / 28px 28px,
+    var(--color-surface-2);
+  color: var(--color-text);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+.setup-lot:hover { border-color: var(--setup-amber, var(--color-accent)); }
+.setup-lot:focus-visible { outline: 3px solid var(--setup-amber, var(--color-accent)); outline-offset: 3px; }
+.setup-lot__plus {
+  font-family: var(--setup-font-pixel, var(--font-sans));
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--setup-violet, var(--color-accent));
+  text-shadow: 0 0 18px rgb(201 176 255 / 0.75);
+  animation: setup-glow 2.4s ease-in-out infinite alternate;
+}
+.setup-lot__title { font-family: var(--setup-font-pixel, var(--font-sans)); font-size: 1.25rem; font-weight: 600; }
+.setup-lot__line { max-width: 22rem; color: var(--color-text-muted); font-size: var(--text-sm); }
+@keyframes setup-glow {
+  from { text-shadow: 0 0 8px rgb(201 176 255 / 0.45); }
+  to { text-shadow: 0 0 22px rgb(201 176 255 / 0.9); }
+}
+
+.setup-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-3); }
+.setup-signins,
+.setup-modules,
+.setup-summary,
+.setup-links { display: grid; gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
+.setup-signin { padding: var(--space-3); border: 1px solid var(--color-border); border-radius: 4px; }
+.setup-module { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.setup-module__name { font-weight: var(--weight-semibold); }
+.setup-module__how { flex-basis: 100%; }
+.setup-links__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); }
+.setup-links__text { min-width: 0; }
+
+@media (max-width: 30rem) {
+  .setup-page { padding-inline: var(--space-4); }
+  .setup-card { padding: var(--space-4); }
+  .setup-card__title { font-size: 1.5rem; }
+  .setup-actions { justify-content: stretch; }
+  .setup-actions .btn { flex: 1 1 auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .setup-lot__plus { animation: none; }
+}

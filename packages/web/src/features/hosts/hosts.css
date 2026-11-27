@@ -1,0 +1,88 @@
+/* Hosts: the add-server flow, this computer, the servers list and its dialogs. Focus rings come from base.css. */
+.host-flow { display: grid; gap: var(--space-4); min-width: 0; }
+
+.host-steps { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; counter-reset: host-step; }
+.host-steps__item {
+  counter-increment: host-step;
+  padding: 2px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+.host-steps__item::before { content: counter(host-step) ". "; }
+.host-steps__item.is-current { border-color: var(--color-accent); background: var(--color-accent-soft); color: var(--color-text); font-weight: var(--weight-semibold); }
+.host-steps__item.is-done { color: var(--color-text); }
+
+.host-step { min-width: 0; }
+.host-step__title { margin: 0; font-size: var(--text-lg); }
+.host-step__title:focus { outline: none; }
+.host-step__intro { margin: 0; color: var(--color-text-muted); }
+.host-step__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+
+.host-form__pair { display: grid; grid-template-columns: minmax(0, 2fr) minmax(5rem, 1fr); gap: var(--space-3); }
+
+.host-more { border: 1px solid var(--color-border); border-radius: var(--radius-sm); }
+.host-more > summary { padding: 8px 12px; cursor: pointer; font-weight: var(--weight-semibold); }
+.host-more > .stack, .host-more > .host-copy { padding: 4px 12px 12px; }
+
+.host-copy { display: grid; gap: var(--space-2); min-width: 0; }
+.host-copy .field__label { margin: 0; }
+.host-copy__text {
+  margin: 0;
+  padding: 10px 12px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  font-size: var(--text-sm);
+  user-select: all;
+}
+
+.host-fp { display: grid; gap: 4px; }
+.host-fp .field__label { margin: 0; }
+.host-fp__value { margin: 0; font-size: var(--text-md); font-weight: var(--weight-semibold); word-break: break-all; }
+
+.host-check { display: flex; align-items: flex-start; gap: 8px; cursor: pointer; }
+.host-check input { margin-top: 3px; }
+.host-rooms { display: grid; gap: var(--space-2); margin: 0; padding: 0; border: 0; min-width: 0; }
+
+.host-missing { margin: 0; padding-left: 1.25rem; display: grid; gap: 4px; }
+
+.host-log {
+  margin: 0;
+  max-height: 14rem;
+  overflow-y: auto;
+  padding: 8px 12px 8px 2.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  font-size: var(--text-sm);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.host-list { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+.host-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+.host-row__main { display: grid; gap: 2px; min-width: 0; }
+.host-row__name { font-weight: var(--weight-semibold); }
+.host-row__where { font-size: var(--text-sm); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.host-row__facts { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); font-size: var(--text-sm); }
+.host-row__actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); }
+.host-row__note { grid-column: 1 / -1; margin: 0; font-size: var(--text-sm); }
+
+@media (max-width: 40rem) {
+  .host-row { grid-template-columns: minmax(0, 1fr); }
+  .host-row__actions { justify-content: flex-start; }
+  .host-form__pair { grid-template-columns: minmax(0, 1fr); }
+}

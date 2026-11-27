@@ -1,0 +1,32 @@
+# dependencies & builds
+node_modules/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# runtime data & secrets — never commit
+.env
+.env.*
+!.env.example
+secrets.env
+data/
+*.db
+*.db-wal
+*.db-shm
+preview/.data/
+*.pem
+*.key
+id_ed25519*
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# local Claude Code state
+.claude/settings.local.json

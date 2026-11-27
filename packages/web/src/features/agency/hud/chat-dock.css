@@ -1,0 +1,233 @@
+/* The chat dock at the bottom of the office. Luady's words are on paper, as in his speech bubbles; the owner's on dusk. */
+.agency-dock {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  height: calc(var(--agency-chat-h) + env(safe-area-inset-bottom));
+  padding: 0 max(var(--space-3), env(safe-area-inset-right)) env(safe-area-inset-bottom) max(var(--space-3), env(safe-area-inset-left));
+  border-top: 2px solid var(--agency-line);
+  background: var(--agency-glass);
+  backdrop-filter: blur(8px);
+}
+.agency-dock--open { z-index: 5; }
+
+.agency-dock__bar { display: flex; align-items: center; gap: var(--space-2); height: var(--agency-chat-h); }
+.agency-dock__toggle {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--agency-tap);
+  height: var(--agency-tap);
+  padding: 0;
+  border: 2px solid var(--agency-line);
+  border-radius: var(--agency-radius);
+  background: var(--agency-panel);
+  color: var(--agency-teal);
+}
+.agency-dock__toggle:hover { border-color: var(--agency-line-strong); }
+.agency-dock__toggle[aria-expanded='true'] { border-color: var(--agency-teal); background: var(--agency-panel-2); }
+.agency-dock__unread {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--agency-void);
+  border-radius: 2px;
+  background: var(--agency-amber);
+}
+.agency-dock__input {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--agency-tap);
+  padding: 0 var(--space-3);
+  border: 2px solid var(--agency-line);
+  border-radius: var(--agency-radius);
+  background: var(--agency-void);
+  color: var(--agency-text);
+  font-size: var(--text-input);
+}
+.agency-dock__input::placeholder { color: var(--agency-subtle); }
+.agency-dock__input:focus { border-color: var(--agency-teal); }
+
+.agency-dock__send-group { position: relative; display: flex; flex: none; }
+.agency-dock__send,
+.agency-dock__more {
+  display: grid;
+  place-items: center;
+  height: var(--agency-tap);
+  padding: 0;
+  border: 0;
+  background: var(--agency-teal);
+  color: var(--agency-ink-dark);
+}
+.agency-dock__send { width: var(--agency-tap); border-radius: var(--agency-radius) 0 0 var(--agency-radius); }
+.agency-dock__more { width: 26px; border-left: 2px solid rgb(18 15 34 / 0.35); border-radius: 0 var(--agency-radius) var(--agency-radius) 0; }
+.agency-dock__more .icon { width: 16px; height: 16px; transform: rotate(-90deg); }
+.agency-dock__send:disabled { opacity: 0.45; }
+.agency-dock__menu {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 12rem;
+  padding: 6px;
+  border: 2px solid var(--agency-line-strong);
+  border-radius: var(--agency-radius);
+  background: var(--agency-panel);
+  box-shadow: var(--agency-shadow-hard), var(--shadow-2);
+}
+.agency-dock__menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--agency-tap);
+  padding: 0 var(--space-3);
+  border: 2px solid transparent;
+  border-radius: var(--agency-radius);
+  background: var(--agency-panel-2);
+  color: var(--agency-text);
+  font-weight: var(--weight-semibold);
+  text-align: start;
+}
+.agency-dock__menu-item:hover { border-color: var(--agency-line-strong); }
+.agency-dock__menu-item .icon,
+.agency-dock__menu-item .pixel-icon { color: var(--agency-teal); }
+
+.agency-dock__notice {
+  position: absolute;
+  right: var(--space-3);
+  bottom: calc(100% + var(--space-2));
+  max-width: 24rem;
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: var(--agency-radius);
+  background: var(--agency-red);
+  color: var(--agency-ink-dark);
+  font-weight: var(--weight-semibold);
+}
+
+/* ---- the conversation, open ---- */
+.agency-dock__panel {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: max(var(--space-3), env(safe-area-inset-left));
+  display: flex;
+  flex-direction: column;
+  width: min(460px, calc(100% - 2 * var(--space-3)));
+  height: min(64vh, 640px, calc(100vh - var(--agency-topbar-h) - var(--agency-chat-h) - 24px));
+  overflow: hidden;
+  border: 2px solid var(--agency-line-strong);
+  border-radius: 6px;
+  background: rgb(27 23 49 / 0.97);
+  box-shadow: inset 0 1px 0 rgb(255 192 102 / 0.2), var(--agency-shadow-hard), var(--shadow-2);
+}
+.agency-dock__head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 48px;
+  padding: 4px 6px 4px 14px;
+  border-bottom: 2px solid var(--agency-line);
+  background: var(--agency-panel-2);
+}
+.agency-dock__title { color: var(--agency-teal); font-family: var(--agency-font-pixel); font-size: 1.125rem; font-weight: 600; }
+.agency-dock__full { margin-left: auto; color: var(--agency-dim); font-size: var(--text-xs); }
+.agency-dock__full:hover { color: var(--agency-text); }
+.agency-dock__close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 2px solid var(--agency-line);
+  border-radius: var(--agency-radius);
+  background: transparent;
+  color: var(--agency-dim);
+}
+.agency-dock__close:hover { color: var(--agency-text); border-color: var(--agency-line-strong); }
+.agency-dock__log { display: flex; flex: 1; flex-direction: column; gap: 10px; margin: 0; padding: 14px; list-style: none; }
+.agency-dock__older { align-self: center; }
+.agency-dock__older-btn {
+  min-height: 30px;
+  padding: 0 12px;
+  border: 2px solid var(--agency-line);
+  border-radius: var(--agency-radius);
+  background: transparent;
+  color: var(--agency-dim);
+}
+.agency-dock__older-btn:hover { color: var(--agency-text); }
+.agency-dock__state { color: var(--agency-dim); }
+.agency-dock__state--error { color: var(--agency-red); }
+/* The manager switched off: a calm note above the bar (no alarm colour), with the link to its switch. */
+.agency-dock__off {
+  position: absolute;
+  left: var(--space-3);
+  bottom: calc(100% + var(--space-2));
+  max-width: min(28rem, calc(100% - 2 * var(--space-3)));
+  margin: 0;
+  padding: 6px 10px;
+  border: 2px solid var(--agency-line);
+  border-radius: var(--agency-radius);
+  background: var(--agency-void);
+  color: var(--agency-dim);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+.agency-dock__off a { color: var(--agency-text); text-decoration: underline; }
+.agency-dock__off a:focus-visible { outline: 2px solid var(--agency-teal); outline-offset: 2px; }
+.agency-dock__input:disabled { cursor: not-allowed; opacity: 0.7; }
+
+.agency-dock__held { flex: none; margin: 0; padding: 8px 14px; border-top: 2px solid var(--agency-line); color: var(--agency-amber); font-size: var(--text-xs); font-weight: var(--weight-semibold); }
+
+.dock-msg { display: flex; flex-direction: column; gap: 3px; max-width: 88%; }
+.dock-msg__text {
+  margin: 0;
+  padding: 8px 11px;
+  border: 2px solid var(--agency-line);
+  border-radius: var(--agency-radius);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.dock-msg__meta { color: var(--agency-subtle); font-size: 0.6875rem; }
+.dock-msg--mine { align-self: flex-end; align-items: flex-end; }
+.dock-msg--mine .dock-msg__text { border-color: rgb(255 192 102 / 0.45); background: rgb(255 192 102 / 0.1); color: var(--agency-text); }
+.dock-msg--pending .dock-msg__text { opacity: 0.7; }
+.dock-msg--manager { align-self: flex-start; }
+.dock-msg--manager .dock-msg__text { border-color: var(--agency-paper-line); background: var(--agency-paper); color: var(--agency-paper-ink); white-space: normal; box-shadow: var(--agency-shadow-hard); }
+.agency-dock .dock-msg--manager .dock-msg__text.prose code { border: 0; background: #efe6d2; color: #4a2c00; }
+.agency-dock .dock-msg--manager .dock-msg__text.prose pre { border: 0; background: #efe6d2; color: #3a2400; }
+.agency-dock .dock-msg--manager .dock-msg__text.prose a { color: #0b5f55; }
+.dock-msg--system { align-self: center; max-width: 100%; }
+.dock-msg--system .dock-msg__text { border-style: dashed; background: transparent; color: var(--agency-dim); white-space: normal; }
+.dock-msg__about { align-self: inherit; max-width: 100%; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .agency-dock__panel { animation: dock-rise 200ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .agency-dock__menu { animation: dock-rise 140ms ease-out; }
+}
+@keyframes dock-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* A phone: the conversation is a sheet over the lower part of the map, the input stays under it. */
+@media (max-width: 759px) {
+  .agency-dock__panel {
+    position: fixed;
+    right: 0;
+    bottom: calc(var(--agency-chat-h) + env(safe-area-inset-bottom));
+    left: 0;
+    width: 100%;
+    height: min(72vh, calc(100vh - var(--agency-topbar-h) - var(--agency-chat-h)));
+    border-width: 2px 0 0;
+    border-radius: 10px 10px 0 0;
+  }
+  .dock-msg { max-width: 92%; }
+  body:has(.agency-dock--open) .toasts { top: calc(100px + var(--space-2)); bottom: auto; }
+}

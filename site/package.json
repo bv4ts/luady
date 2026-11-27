@@ -1,0 +1,36 @@
+{
+  "name": "luady-site",
+  "version": "0.2.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "Builds the Luady website (site/dist): a Next.js static export with the landing page and the docs from docs/.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node scripts/run-next.mjs dev",
+    "demo": "node demo.mjs",
+    "check": "node check-links.mjs",
+    "check:strict": "node check-links.mjs --strict",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "node --test \"test/*.test.mjs\""
+  },
+  "dependencies": {
+    "marked": "18.1.0",
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "sharp": "file:./vendor/no-sharp"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "sharp": "$sharp"
+  }
+}

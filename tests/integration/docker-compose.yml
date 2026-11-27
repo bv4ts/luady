@@ -1,0 +1,54 @@
+# Luady integration fleet. The harness starts one compose project per test file:
+#   docker compose -f tests/integration/docker-compose.yml -p <project> --profile bare up -d --wait <service>
+# LUADY_IT_KEYS_DIR must hold ssh_host_ed25519_key(.pub) and client_ed25519.pub (made per test run).
+# The `hub` service (profile hub) is the hub machine of the specs that run the real `luady start`; it is built only
+# when a spec asks for it (harness/hub-machine.ts), and LUADY_IT_HUB_PORT is the port the browser reaches it on.
+name: luady-it
+
+x-server: &server
+  init: true
+  ports:
+    - "127.0.0.1::22"
+  volumes:
+    - type: bind
+      source: ${LUADY_IT_KEYS_DIR:?set LUADY_IT_KEYS_DIR to the per-run key directory}
+      target: /run/luady-keys
+      read_only: true
+  healthcheck:
+    test: ["CMD-SHELL", "pgrep -x sshd >/dev/null"]
+    interval: 1s
+    timeout: 3s
+    retries: 30
+
+services:
+  fake-server:
+    <<: *server
+    image: luady-it-fake-server:latest
+    build:
+      context: ./fake-server
+      target: with-kit
+      additional_contexts:
+        serverkit: ../../server-kit
+  bare-server:
+    <<: *server
+    image: luady-it-bare-server:latest
+    profiles: ["bare"]
+    build:
+      context: ./fake-server
+      target: base
+  hub:
+    image: luady-it-hub:latest
+    profiles: ["hub"]
+    init: true
+    build:
+      context: ../..
+      dockerfile: tests/integration/hub/Dockerfile
+    environment:
+      LUADY_IT_WEB_PORT: ${LUADY_IT_HUB_PORT:-7410}
+    ports:
+      - "127.0.0.1:${LUADY_IT_HUB_PORT:-7410}:7411"
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -x socat >/dev/null"]
+      interval: 1s
+      timeout: 3s
+      retries: 30

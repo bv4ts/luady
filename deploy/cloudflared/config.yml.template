@@ -1,0 +1,15 @@
+# /etc/cloudflared/config.yml for the Luady tunnel, rendered by deploy/cloudflared/install-tunnel.md §4.
+# ${LUADY_TUNNEL_ID} is the UUID of the tunnel named "luady" (`cloudflared tunnel list`). Using the UUID
+# with a credentials file means the service never needs the account certificate (cert.pem) at run time.
+tunnel: ${LUADY_TUNNEL_ID}
+credentials-file: /etc/cloudflared/${LUADY_TUNNEL_ID}.json
+
+ingress:
+  # Website, API and /ws. The hub binds 127.0.0.1 only; Cloudflare Access ("Owner only") guards this hostname.
+  - hostname: luady.example.com
+    service: http://127.0.0.1:7410
+  # Voice (optional): uncomment together with the voice Access app (Bypass policy) and the Twilio setup.
+  # - hostname: voice.example.com
+  #   service: http://127.0.0.1:7411
+  # Everything else, including unknown hostnames, is refused.
+  - service: http_status:404

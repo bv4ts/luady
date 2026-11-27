@@ -1,0 +1,59 @@
+/* On the board: "Remind me…", the due chip, and the Later drawer under To do. */
+.remind { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.remind__state { color: var(--ink-soft); font-size: 0.85rem; font-weight: 600; }
+.remind__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 4;
+  display: grid;
+  min-width: 230px;
+  padding: 4px;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  background: var(--paper);
+  box-shadow: 0 4px 0 rgb(43 33 22 / 0.3);
+}
+.remind__item { min-height: 36px; padding: 4px 10px; border: 0; border-radius: 2px; background: transparent; color: var(--ink); font: inherit; text-align: start; cursor: pointer; }
+.remind__item:hover, .remind__item:focus-visible { background: rgb(43 33 22 / 0.08); }
+.remind-pick { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 8px; align-items: center; padding: 8px; border-top: 1px dashed var(--paper-line); }
+.remind-pick .paper-btn { grid-column: 1 / -1; justify-self: end; }
+.remind-pick .paper-card__error { grid-column: 1 / -1; }
+.card-sheet__remind { align-items: center; gap: 12px 24px; }
+.remind .remind-pick { padding: 0; border: 0; }
+
+.due-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  justify-self: start;
+  padding: 1px 7px;
+  border: 1.5px solid var(--ink-soft);
+  border-radius: 3px;
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.due-chip::before { content: '⏰'; font-size: 0.7rem; }
+.due-chip--past { border-color: var(--stamp-red); background: var(--stamp-red); color: #fff; }
+.paper-card > .due-chip { margin: 2px 0 0; }
+
+.later { display: grid; gap: 4px; }
+.later__toggle { text-align: start; }
+.later__list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.later__card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 8px;
+  align-items: center;
+  padding: 6px 8px;
+  border: 1px dashed var(--ink-faint);
+  border-radius: 2px;
+  background: rgb(242 232 208 / 0.7);
+  color: var(--ink);
+}
+.later__title { display: -webkit-box; overflow: hidden; padding: 0; border: 0; background: none; color: inherit; font: inherit; font-weight: 700; line-height: 1.25; text-align: start; overflow-wrap: anywhere; cursor: pointer; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.later__title:hover { text-decoration: underline; }
+.later__when { grid-column: 1; color: var(--ink-soft); font-size: 0.75rem; }
+.later__card .paper-btn { grid-column: 2; grid-row: 1 / span 2; }

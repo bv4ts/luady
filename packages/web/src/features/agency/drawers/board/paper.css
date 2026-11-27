@@ -1,0 +1,142 @@
+/* Paper, pins and stamped buttons shared by the Board and Notes pop-ups. Paper is a physical thing in the
+   office, so it keeps its own colours in both browser themes; everything around it reads the office's tokens. */
+.paper-scope,
+.board,
+.notes {
+  --paper: #f2e8d0;
+  --paper-shade: #e3d4b1;
+  --paper-line: rgb(84 60 32 / 0.18);
+  --ink: #2b2116;
+  --ink-soft: #5e4d38;
+  --ink-faint: #8a7860;
+  --pin: #c73a2e;
+  --stamp-teal: #17766b;
+  --stamp-red: #b3261e;
+  --wood-dark: #3d2615;
+  --wood: #6a4327;
+  --wood-light: #8e5f38;
+  --plaque-ink: #f5dba6;
+  --display: var(--agency-font-pixel, inherit);
+}
+
+/* ---- buttons on paper ---- */
+.paper-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1.5px solid rgb(43 33 22 / 0.4);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.paper-btn:hover:not(:disabled) { border-color: var(--ink); background: rgb(43 33 22 / 0.06); }
+.paper-btn:focus-visible,
+.paper-toggle:focus-visible,
+.paper-link:focus-visible,
+.paper-input:focus-visible { outline: 3px solid var(--agency-focus, #ffb648); outline-offset: 1px; }
+.paper-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.paper-btn--small { min-height: 30px; padding: 0 10px; font-size: 0.8rem; }
+.paper-btn--ink { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.paper-btn--ink:hover:not(:disabled) { background: #46372a; }
+.paper-btn--danger { border-color: var(--stamp-red); background: var(--stamp-red); color: #fff; }
+.paper-btn--danger-quiet { border-color: rgb(179 38 30 / 0.45); color: var(--stamp-red); }
+.paper-btn--run { border-color: #0f5c53; background: var(--stamp-teal); color: #fff; }
+.paper-btn--run:hover:not(:disabled) { background: #1d8a7d; }
+
+.paper-toggle {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1.5px dashed rgb(43 33 22 / 0.4);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.paper-toggle[aria-pressed='true'] { border-style: solid; border-color: var(--stamp-teal); background: rgb(23 118 107 / 0.12); color: var(--stamp-teal); }
+.paper-toggle:last-child[aria-pressed='true'] { border-color: var(--stamp-red); background: rgb(179 38 30 / 0.1); color: var(--stamp-red); }
+
+.paper-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--stamp-teal);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+/* ---- fields on paper ---- */
+.paper-input {
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid rgb(43 33 22 / 0.28);
+  border-radius: 4px;
+  background: rgb(255 253 246 / 0.75);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+.paper-input::placeholder { color: var(--ink-faint); }
+.paper-input--title { font-size: 1rem; font-weight: 700; }
+.paper-input--small { width: auto; min-height: 32px; padding: 4px 8px; font-size: 0.82rem; }
+.paper-field { display: grid; gap: 3px; color: var(--ink-soft); font-size: 0.78rem; font-weight: 600; }
+.paper-field .paper-input--small { width: 100%; min-width: 150px; }
+.paper-check { display: inline-flex; align-items: center; gap: 5px; color: var(--ink-soft); font-size: 0.82rem; }
+.paper-check input { accent-color: var(--stamp-teal); }
+
+/* ---- the pin ---- */
+.paper-card__pin {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 13px;
+  height: 13px;
+  margin-left: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff9c8f 0 18%, var(--pin) 45%, #7d1e17 100%);
+  box-shadow: 1px 3px 2px rgb(0 0 0 / 0.38);
+}
+
+/* ---- Markdown on paper ---- */
+.board .prose,
+.notes .prose { color: var(--ink); }
+.board .prose a,
+.notes .prose a { color: var(--stamp-teal); }
+.board .prose code,
+.board .prose pre,
+.notes .prose code,
+.notes .prose pre { background: rgb(43 33 22 / 0.08); color: var(--ink); }
+.board .prose blockquote,
+.notes .prose blockquote { border-inline-start-color: var(--paper-shade); color: var(--ink-soft); }
+
+/* Luady's small composer, on paper. */
+.ask-luady { display: grid; gap: 6px; padding-top: 12px; border-top: 1px dashed var(--paper-line); }
+.ask-luady__label { color: var(--ink-soft); font-size: 0.82rem; font-weight: 700; }
+.ask-luady__row { display: flex; align-items: flex-end; gap: 8px; }
+.ask-luady__input {
+  flex: 1;
+  min-width: 0;
+  padding: 7px 9px;
+  border: 1px solid rgb(43 33 22 / 0.28);
+  border-radius: 4px;
+  background: rgb(255 253 246 / 0.75);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+.ask-luady__error { margin: 0; color: var(--stamp-red); font-size: 0.82rem; }

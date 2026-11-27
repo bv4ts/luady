@@ -1,0 +1,45 @@
+{
+  "name": "luady",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "start": "node packages/hub/dist/cli.js start",
+    "demo": "node --experimental-strip-types preview/demo.ts",
+    "doctor": "node packages/hub/dist/cli.js doctor",
+    "luady": "node packages/hub/dist/cli.js",
+    "test": "npm test --workspaces --if-present",
+    "typecheck": "node scripts/check-literals.mjs && npm run typecheck --workspaces --if-present",
+    "check:literals": "node scripts/check-literals.mjs",
+    "licence:check": "node scripts/licence-check.mjs",
+    "test:scripts": "node --test scripts/check-literals.test.mjs scripts/licence-check.test.mjs",
+    "coverage": "npm run coverage --workspaces --if-present",
+    "test:kit": "docker build -t luady-kit-test -f server-kit/Dockerfile.test server-kit && docker run --rm luady-kit-test",
+    "test:integration": "npm run build && npm --prefix tests/integration ci --no-audit --no-fund && npm --prefix tests/integration test",
+    "test:e2e": "npm run build && npm --prefix tests/integration ci --no-audit --no-fund && npm --prefix tests/integration exec -- playwright install chromium && npm --prefix tests/integration run e2e",
+    "deploy": "node deploy/run-bash.mjs deploy/deploy.sh",
+    "preview": "node --experimental-strip-types preview/main.ts",
+    "preview:drive": "node --experimental-strip-types preview/drive.ts",
+    "test:preview": "vitest run --root preview",
+    "typecheck:preview": "tsc -p preview/tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@vitest/coverage-v8": "5.0.3",
+    "typescript": "5.9.3",
+    "vitest": "5.0.3"
+  },
+  "overrides": {
+    "@types/ssh2": {
+      "@types/node": "22.20.5"
+    }
+  }
+}

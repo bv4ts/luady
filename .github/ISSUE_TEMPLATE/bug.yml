@@ -1,0 +1,110 @@
+name: Bug report
+description: Something in Luady does not work as expected.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this.
+
+        **Security problem?** Do not use this form. Report it privately through the [security policy](https://github.com/bv4ts/luady/security/policy).
+
+        **Question or need help?** Please use [Discussions](https://github.com/bv4ts/luady/discussions) instead.
+  - type: input
+    id: version
+    attributes:
+      label: Luady version
+      description: The release tag you installed, or the commit if you run from source (`git rev-parse --short HEAD`).
+      placeholder: "e.g. v0.1.0 or 1a2b3c4"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      description: For the hub and for the affected server if they differ. Include the version.
+      placeholder: "e.g. Ubuntu 24.04, macOS 15, Windows 11"
+    validations:
+      required: true
+  - type: dropdown
+    id: install-kind
+    attributes:
+      label: Install kind
+      options:
+        - Demo or preview (no real server)
+        - One machine
+        - Several servers
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Which part is affected?
+      options:
+        - Hub
+        - Website
+        - Office engine
+        - MCP server
+        - Python helper on a server
+        - Install scripts
+        - Add-on SDK
+        - Not sure
+    validations:
+      required: false
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps, starting from a fresh start if you can.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: What happened instead? Screenshots or a short recording help a lot.
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `npm run doctor`
+      description: |
+        Run `npm run doctor` in the folder where you installed Luady and paste what it prints. It shows your settings and whether each server answers.
+
+        **Remove anything private first.** The output names your servers (user, host and port), your folders, the web address and the owner's contact details. Replace each with `REDACTED`, or with `example.com`.
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: |
+        Paste the relevant log lines or error output.
+
+        **Before you paste, remove secrets and personal data:** tokens, keys, passwords, cookies, host names, IP addresses, e-mail addresses and phone numbers. Replace them with `REDACTED`.
+      render: shell
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: I searched existing issues and did not find this one.
+          required: true
+        - label: I removed secrets and personal data from everything I pasted or attached.
+          required: true

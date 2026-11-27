@@ -1,0 +1,118 @@
+/*
+ * Shared pieces for everything shown over the office (tokens: agency.css). Use these classes for the inside of
+ * Board, Notes, Library and Jira so the office reads as one place.
+ *
+ *   .agency-pixel      the pixel display font (titles, plaques, lane names). Short labels only, never body text.
+ *   .agency-title      a heading inside a pop-up: pixel font, one size.
+ *   .agency-surface    a raised dusk card or row (2px edge, 4px corners). Add .is-active for the selected one.
+ *   .agency-paper      white paper with an ink edge and a hard shadow (cards on cork, notes, speech).
+ *   .agency-tag        a small label; set the team colours with teamStyle() to get the office's colour edge.
+ *   .agency-count      a number chip; tones .agency-count--info | --warn | --alert.
+ *   .agency-iconbtn    a 40px square icon button on dusk glass.
+ *   .agency-empty      an empty place: .agency-empty__title (what is missing) + .agency-empty__body (what to do next).
+ *   .agency-scroll     a scrolling column that does not drag the map behind it.
+ */
+.agency-pixel,
+.agency-title {
+  font-family: var(--agency-font-pixel);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  /* The pixel face is drawn on a 1px grid: keep its edges hard. */
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+.agency-title { margin: 0; color: var(--agency-text); font-size: 1rem; line-height: 1.2; }
+
+.agency-surface {
+  border: 2px solid var(--agency-line);
+  border-radius: var(--agency-radius);
+  background: var(--agency-panel-2);
+  color: var(--agency-text);
+}
+.agency-surface:is(button, a):hover { border-color: var(--agency-line-strong); background: var(--agency-panel-3); }
+.agency-surface.is-active { border-color: var(--agency-amber); }
+
+.agency-paper {
+  border: 2px solid var(--agency-paper-line);
+  border-radius: 3px;
+  background: var(--agency-paper);
+  color: var(--agency-paper-ink);
+  box-shadow: var(--agency-shadow-hard);
+}
+
+.agency-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  padding: 1px 6px;
+  overflow: hidden;
+  border: 1px solid var(--agency-line);
+  border-left: 3px solid var(--team, var(--agency-line-strong));
+  border-radius: 3px;
+  background: var(--agency-void);
+  color: var(--agency-dim);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.agency-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 5px;
+  border-radius: 3px;
+  background: var(--agency-line);
+  color: var(--agency-text);
+  font-size: 0.6875rem;
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.agency-count--info { background: var(--agency-teal); color: var(--agency-ink-dark); }
+.agency-count--warn { background: var(--agency-amber); color: var(--agency-ink-dark); }
+.agency-count--alert { background: var(--agency-red); color: var(--agency-ink-dark); }
+
+.agency-iconbtn {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--agency-tap);
+  height: var(--agency-tap);
+  padding: 0;
+  border: 2px solid var(--agency-line);
+  border-radius: var(--agency-radius);
+  background: var(--agency-panel);
+  color: var(--agency-text);
+}
+.agency-iconbtn:hover { border-color: var(--agency-line-strong); background: var(--agency-panel-2); }
+
+.agency-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-8) var(--space-4);
+  color: var(--agency-dim);
+  text-align: center;
+}
+.agency-empty__title { margin: 0; color: var(--agency-text); font-family: var(--agency-font-pixel); font-size: 1.0625rem; font-weight: 600; }
+.agency-empty__body { max-width: 26rem; margin: 0; }
+
+.agency-scroll { min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--agency-line-strong) transparent; }
+
+/* Markdown on dusk glass: code is a dark inset with lamp-coloured text, never a white bar. */
+.agency .prose code,
+body:has(.agency) .toast code {
+  padding: 0.1em 0.35em;
+  border: 1px solid var(--agency-line);
+  border-radius: 3px;
+  background: var(--agency-void);
+  color: #ffd9a0;
+}
+.agency .prose pre { border: 1px solid var(--agency-line); border-radius: var(--agency-radius); background: var(--agency-void); color: #ffe7c4; }
+.agency .prose pre code { border: 0; background: none; color: inherit; }
+.agency .prose a { color: var(--agency-teal); }

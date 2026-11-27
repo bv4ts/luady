@@ -1,0 +1,9 @@
+/* The drawers demo page only: a night-office backdrop and two buttons that reopen the pop-ups. */
+.agency {
+  background:
+    radial-gradient(circle at 20% 30%, rgb(214 51 108 / 0.12), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgb(60 195 176 / 0.12), transparent 40%),
+    repeating-linear-gradient(0deg, #0f1420 0 16px, #111726 16px 32px);
+}
+.demo-drawers__bar { position: absolute; top: 12px; left: 12px; display: flex; gap: 8px; }
+.demo-drawers__bar button { padding: 6px 12px; border: 1px solid #2d3850; border-radius: 6px; background: #121826; color: #e9eef7; }

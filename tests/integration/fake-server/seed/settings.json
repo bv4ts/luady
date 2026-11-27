@@ -1,0 +1,12 @@
+{
+  "model": "opus",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          { "type": "command", "command": "~/.claude/hooks/skills-first.sh" }
+        ]
+      }
+    ]
+  }
+}

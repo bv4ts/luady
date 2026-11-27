@@ -1,0 +1,66 @@
+/* The Rooms button and its menu: every room, searchable, any number of them. */
+.rooms-menu { position: relative; flex: none; }
+.rooms-menu__button { gap: 6px; }
+.rooms-menu__panel {
+  position: fixed;
+  top: calc(var(--agency-topbar-h) + 4px);
+  left: 12px;
+  z-index: 40;
+  display: grid;
+  gap: 8px;
+  width: min(380px, calc(100vw - 24px));
+  padding: 10px;
+  border: 2px solid var(--agency-line-strong);
+  border-radius: var(--agency-radius);
+  background: var(--agency-panel);
+  color: var(--agency-text);
+  box-shadow: var(--agency-shadow-hard), 0 18px 40px var(--agency-shadow);
+}
+.rooms-menu__search {
+  width: 100%;
+  min-height: var(--agency-tap);
+  padding: 6px 10px;
+  border: 1px solid var(--agency-line-strong);
+  border-radius: var(--agency-radius);
+  background: var(--agency-void);
+  color: var(--agency-text);
+  font: inherit;
+}
+.rooms-menu__search:focus-visible { outline: 2px solid var(--agency-focus); outline-offset: 1px; }
+.rooms-menu__scroll { max-height: 352px; overflow-y: auto; }
+.rooms-menu__list { margin: 0; padding: 0; list-style: none; }
+.rooms-menu__list.vlist { max-height: none; }
+.rooms-menu__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 8px;
+  border-left: 4px solid var(--team);
+  border-radius: 2px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.rooms-menu__row:hover,
+.rooms-menu__row--active { background: var(--agency-line); outline: 1px solid var(--agency-focus); }
+.rooms-menu__dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--team); }
+.rooms-menu__main { display: grid; flex: 1; min-width: 0; }
+.rooms-menu__main b,
+.rooms-menu__main small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rooms-menu__main small { color: var(--agency-dim); font-size: var(--text-xs); }
+.rooms-menu__count { flex: none; color: var(--agency-dim); font-size: var(--text-xs); }
+.rooms-menu__need { flex: none; padding: 0 6px; border-radius: var(--radius-pill); background: var(--agency-red); color: var(--agency-ink-dark); font-size: var(--text-xs); }
+.rooms-menu__empty { margin: 4px 0; color: var(--agency-dim); }
+.rooms-menu__foot { display: flex; gap: 8px; justify-content: space-between; }
+.rooms-menu__manage {
+  min-height: 36px;
+  padding: 4px 10px;
+  border: 1px solid var(--agency-line-strong);
+  border-radius: var(--agency-radius);
+  background: none;
+  color: var(--agency-text);
+  font: inherit;
+  cursor: pointer;
+}
+.rooms-menu__manage:hover { border-color: var(--agency-text); }
+.rooms-menu__manage:focus-visible { outline: 2px solid var(--agency-focus); outline-offset: 2px; }

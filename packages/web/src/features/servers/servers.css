@@ -1,0 +1,26 @@
+.server-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: var(--space-4); }
+.server-detail { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+@media (min-width: 72rem) {
+  .server-detail { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+}
+
+.metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+@media (min-width: 30rem) {
+  .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.metric { display: flex; flex-direction: column; gap: 2px; min-width: 0; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); background: var(--color-surface-2); }
+.metric__label { color: var(--color-text-muted); font-size: var(--text-xs); font-weight: var(--weight-semibold); letter-spacing: 0.06em; text-transform: uppercase; }
+.metric__value { font-size: var(--text-lg); font-variant-numeric: tabular-nums; font-weight: var(--weight-semibold); }
+.metric__value--warn,
+.metric__hint--warn { color: var(--state-waiting-fg); }
+.metric__hint { color: var(--color-text-subtle); font-size: var(--text-xs); }
+
+.project-list { display: flex; flex-direction: column; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+.project-list__item { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-2); }
+.project-list__name { font-weight: var(--weight-semibold); }
+.project-list__commit { flex-basis: 100%; overflow: hidden; font-size: var(--text-xs); text-overflow: ellipsis; white-space: nowrap; }
+
+.action-result { display: flex; flex-direction: column; gap: var(--space-2); padding-top: var(--space-3); border-top: 1px solid var(--color-border); }
+.action-result__output { max-height: 20rem; padding: var(--space-3); overflow: auto; border-radius: var(--radius-md); background: var(--color-surface-2); font-size: var(--text-sm); }
+.action-result__output--error { background: var(--color-danger-soft); color: var(--color-danger-strong); }
+.file-editor__text { min-height: 16rem; white-space: pre; overflow-wrap: normal; overflow-x: auto; }

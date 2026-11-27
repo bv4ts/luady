@@ -1,0 +1,16 @@
+# Test image for the Luady server kit: Ubuntu 24.04 (python3 3.12, tmux 3.4) by default. CI also builds it with
+# --build-arg BASE=ubuntu:22.04 (python3 3.10, tmux 3.2), the oldest Python the kit supports.
+ARG BASE=ubuntu:24.04
+FROM ${BASE}
+ENV DEBIAN_FRONTEND=noninteractive LANG=C.UTF-8 LC_ALL=C.UTF-8 PYTHONDONTWRITEBYTECODE=1
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends python3 python3-coverage tmux git procps ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+RUN git config --global user.email kit-test@example.invalid \
+ && git config --global user.name "kit test" \
+ && git config --global init.defaultBranch main
+WORKDIR /kit
+COPY . /kit
+RUN find /kit -type f \( -name '*.py' -o -name '*.sh' -o -name 'luady-ctl' -o -name 'claude' \) -exec sed -i 's/\r$//' {} + \
+ && find /kit -type f \( -path '/kit/bin/*' -o -path '/kit/tests/fakes/*' -o -name '*.sh' \) -exec chmod 0755 {} +
+CMD ["sh", "run_tests.sh"]

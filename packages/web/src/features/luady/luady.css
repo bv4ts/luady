@@ -1,0 +1,78 @@
+.luady-page { gap: var(--space-4); }
+
+/* The manager switched off: a calm note with the link to its switch, never an alarm. */
+.manager-off {
+  margin: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-2);
+  color: var(--color-text-subtle);
+}
+.manager-off a { font-weight: 600; }
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  height: calc(100dvh - var(--topbar-h) - var(--tabbar-h) - env(safe-area-inset-bottom) - 12.5rem);
+  min-height: 22rem;
+}
+@media (min-width: 60rem) {
+  .chat { height: calc(100dvh - 13rem); }
+}
+.chat__log {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 0;
+  padding: var(--space-3);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+.chat__log > .btn { align-self: center; }
+.chat-msg {
+  align-self: flex-start;
+  max-width: min(40rem, 88%);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) var(--radius-sm);
+  background: var(--color-surface-2);
+}
+.chat-msg--mine {
+  align-self: flex-end;
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-sm) var(--radius-lg);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+.chat-msg--pending { outline: 1px dashed var(--color-accent); outline-offset: 2px; }
+.chat-msg--system { align-self: center; background: transparent; color: var(--color-text-subtle); font-size: var(--text-sm); }
+.chat-msg__text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.chat-msg__meta { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-2); margin-top: var(--space-1); color: var(--color-text-subtle); font-size: var(--text-xs); }
+.chat-msg--mine .chat-msg__meta { color: var(--color-accent-soft); }
+.chat-msg--mine .chip { background: rgb(255 255 255 / 0.16); color: var(--color-accent-contrast); }
+.chat-msg .prose code,
+.chat-msg .prose pre { background: var(--color-surface-3); }
+.chat__composer { display: flex; align-items: flex-end; gap: var(--space-2); }
+.chat__input { min-height: var(--tap); max-height: 9rem; resize: none; field-sizing: content; }
+
+.memory-list { display: flex; flex-direction: column; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
+.memory-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--tap);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text);
+  text-align: start;
+}
+.memory-item:hover:not(:disabled) { background: var(--color-surface-2); }
+.memory-item__name { flex: 1; min-width: 0; }
+.memory-viewer .prose { max-width: 46rem; }

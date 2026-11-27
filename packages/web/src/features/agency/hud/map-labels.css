@@ -1,0 +1,119 @@
+/* Room plaques and fixture badges over the map: labels only, kept in the free band between the bars. */
+.agency-pins {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  clip-path: inset(var(--agency-topbar-h) 0 calc(var(--agency-chat-h) + env(safe-area-inset-bottom)) 0);
+  pointer-events: none;
+}
+.map-plaque,
+.map-badge { position: absolute; top: 0; left: 0; will-change: transform; }
+.map-plaque[hidden],
+.map-badge[hidden] { display: none; }
+
+/* A painted name plate on the room's back corner: dusk glass, the office colour down its left edge. */
+.map-plaque {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 2px 8px 3px 7px;
+  overflow: hidden;
+  border: 1px solid rgb(4 2 12 / 0.6);
+  border-left: 4px solid var(--team);
+  border-radius: 3px;
+  background: rgb(20 17 38 / 0.82);
+  color: var(--agency-text);
+  white-space: nowrap;
+  box-shadow: 0 2px 0 rgb(4 2 12 / 0.45);
+}
+.map-plaque__name { flex: none; font-family: var(--agency-font-pixel); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.02em; }
+.map-plaque__words { min-width: 0; overflow: hidden; color: var(--agency-dim); font-size: 0.6875rem; font-weight: var(--weight-semibold); text-overflow: ellipsis; }
+.map-plaque--needs .map-plaque__words { color: #ffb3a7; }
+.map-plaque--wall { translate: 0 -100%; }
+.map-plaque--wall-end { translate: -100% -100%; }
+
+/* A fixture's number: a small chip on the top-right corner of its picture. */
+.map-badge {
+  translate: -50% -50%;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border: 2px solid var(--agency-ink-dark);
+  border-radius: 3px;
+  background: var(--agency-teal);
+  color: var(--agency-ink-dark);
+  font-family: var(--agency-font-pixel);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 14px;
+  text-align: center;
+  box-shadow: 0 2px 0 rgb(4 2 12 / 0.5);
+}
+.map-badge--warn { background: var(--agency-amber); }
+.map-badge--alert { background: var(--agency-red); }
+
+@media (max-width: 759px) {
+  .map-plaque { gap: 6px; padding: 1px 6px 2px 5px; }
+  .map-plaque__name { font-size: 0.75rem; }
+}
+/* The TV's alarm: a red dot, no number. */
+.map-badge--dot { min-width: 14px; width: 14px; height: 14px; padding: 0; border-radius: 50%; }
+
+/* Far mode: a badge per room nearest the view's centre; the colour dot is never the only signal. */
+.map-far {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 220px;
+  padding: 2px 7px;
+  overflow: hidden;
+  translate: -50% 0;
+  border: 1px solid rgb(4 2 12 / 0.6);
+  border-radius: 3px;
+  background: rgb(20 17 38 / 0.86);
+  color: var(--agency-text);
+  font-size: 0.6875rem;
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+  will-change: transform;
+}
+.map-far[hidden] { display: none; }
+.map-far__dot { flex: none; width: 9px; height: 9px; border: 1px solid rgb(4 2 12 / 0.7); border-radius: 50%; background: var(--team); }
+.map-far__name { min-width: 0; overflow: hidden; text-overflow: ellipsis; font-family: var(--agency-font-pixel); }
+.map-far__count { flex: none; padding: 0 4px; border-radius: 3px; background: var(--agency-void); }
+.map-far__need { flex: none; padding: 0 4px; border-radius: var(--radius-pill); background: var(--agency-red); color: var(--agency-ink-dark); }
+.map-far--needs { border-color: var(--agency-red); }
+
+/* An empty slot's "+ Add room": a button in its own layer (the labels above ignore the pointer). */
+.agency-lots {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  clip-path: inset(var(--agency-topbar-h) 0 calc(var(--agency-chat-h) + env(safe-area-inset-bottom)) 0);
+  pointer-events: none;
+}
+.map-lot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  translate: -50% 0;
+  padding: 3px 10px;
+  border: 1px dashed var(--agency-dim);
+  border-radius: 3px;
+  background: rgb(20 17 38 / 0.82);
+  color: var(--agency-text);
+  font-family: var(--agency-font-pixel);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+  will-change: transform;
+}
+.map-lot[hidden] { display: none; }
+.map-lot:hover { border-style: solid; border-color: var(--agency-text); }
+.map-lot:focus-visible { outline: 3px solid var(--agency-focus); outline-offset: 2px; }

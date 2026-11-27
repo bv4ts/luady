@@ -1,0 +1,169 @@
+/* Give to… and dragging. The picker and the chip are portalled to <body> inside an OfficePortal, which
+   carries the office tokens (agency.css). While something is dragged the open pop-up shrinks away and the map shows
+   through. */
+
+:root[data-give-dragging] .modal-frame,
+:root[data-give-dragging] [data-testid='modal-backdrop'] {
+  background: transparent;
+  pointer-events: none;
+  transition: background 160ms ease;
+}
+:root[data-give-dragging] .modal-frame__dialog,
+:root[data-give-dragging] [data-testid='modal-backdrop'] > [role='dialog'] {
+  opacity: 0;
+  transform: scale(0.18);
+  transition: opacity 160ms ease, transform 200ms ease;
+}
+:root[data-give-dragging],
+:root[data-give-dragging] * { cursor: grabbing; }
+
+/* ---- the chip that follows the pointer ---- */
+.give-chip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  display: grid;
+  gap: 2px;
+  max-width: 260px;
+  padding: 10px 12px 9px 14px;
+  border-left: 5px solid #6c7689;
+  border-radius: 2px 6px 6px 2px;
+  background: #f1e7cf;
+  box-shadow: 0 10px 22px rgb(0 0 0 / 0.45), 0 2px 0 rgb(120 90 50 / 0.35);
+  color: #2b2116;
+  opacity: 0.85;
+  pointer-events: none;
+  rotate: -2deg;
+  /* Above and to the left of the pointer by default (DragChip's data-side), clear of its tip and the lit target. */
+  translate: calc(-100% - 16px) calc(-100% - 16px);
+}
+.give-chip[data-side~='right'] { translate: 18px calc(-100% - 16px); }
+.give-chip[data-side~='below'] { translate: calc(-100% - 16px) 22px; }
+.give-chip[data-side='right below'] { translate: 18px 22px; }
+.give-chip::before {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff9c8f, #c73a2e 60%, #7d1e17);
+  box-shadow: 0 2px 2px rgb(0 0 0 / 0.4);
+  content: '';
+}
+.give-chip--armed { border-left-color: #3cc3b0; }
+.give-chip__label { overflow: hidden; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.give-chip__hint { color: #6b5a44; font-size: 0.8rem; }
+.give-chip--armed .give-chip__hint { color: #1d6b60; }
+
+/* ---- the picker ---- */
+.give-picker {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgb(6 8 14 / 0.55);
+}
+.give-picker__sheet {
+  display: flex;
+  flex-direction: column;
+  width: min(480px, 100%);
+  max-height: min(80vh, 760px);
+  border: 1px solid var(--agency-line, #2d3850);
+  border-radius: 12px;
+  background: var(--agency-panel, #121826);
+  box-shadow: 0 24px 60px rgb(0 0 0 / 0.55);
+  color: var(--agency-text, #e9eef7);
+  overflow: hidden;
+}
+.give-picker__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 10px;
+}
+.give-picker__title { margin: 0; overflow: hidden; font-size: 1.05rem; text-overflow: ellipsis; white-space: nowrap; }
+.give-picker__close {
+  flex: none;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--agency-line, #2d3850);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.give-picker__body { display: grid; gap: 14px; padding: 4px 16px 18px; overflow: auto; overscroll-behavior: contain; }
+.give-picker__list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.give-picker__room-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  color: var(--agency-dim, #9eabc2);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.give-picker__room-name::before { width: 10px; height: 10px; border-radius: 2px; background: var(--team); content: ''; }
+.give-picker__target {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 12px;
+  border: 1px solid var(--agency-line, #2d3850);
+  border-radius: 8px;
+  background: var(--agency-panel-2, #1a2233);
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.give-picker__target:hover:not(:disabled) { border-color: var(--team); }
+.give-picker__target:focus-visible { outline: 3px solid var(--agency-focus, #ffb648); outline-offset: 1px; }
+.give-picker__target:disabled { opacity: 0.5; cursor: not-allowed; }
+.give-picker__target[data-target='auto'] { border-color: rgb(60 195 176 / 0.6); background: rgb(60 195 176 / 0.12); }
+.give-picker__swatch { flex: none; width: 6px; align-self: stretch; border-radius: 3px; background: var(--team); }
+.give-picker__words { display: grid; min-width: 0; }
+.give-picker__name { overflow: hidden; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.give-picker__detail { color: var(--agency-dim, #9eabc2); font-size: 0.82rem; }
+.give-picker__note { display: grid; gap: 4px; color: var(--agency-dim, #9eabc2); font-size: 0.82rem; }
+.give-picker__note textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--agency-line, #2d3850);
+  border-radius: 8px;
+  background: var(--agency-void, #0c101a);
+  color: var(--agency-text, #e9eef7);
+  font: inherit;
+  resize: vertical;
+}
+
+@media (max-width: 759px) {
+  .give-picker { align-items: flex-end; padding: 0; }
+  .give-picker__sheet { width: 100%; max-height: 88vh; border-radius: 14px 14px 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-give-dragging] .modal-frame__dialog,
+  :root[data-give-dragging] [data-testid='modal-backdrop'] > [role='dialog'] { transition: none; }
+}
+
+/* More than eight servers: a search box above the rooms. */
+.give-picker__search { display: grid; gap: 4px; color: var(--agency-dim, #9eabc2); font-size: 0.82rem; }
+.give-picker__search input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--agency-line, #2d3850);
+  border-radius: 8px;
+  background: var(--agency-void, #0c101a);
+  color: var(--agency-text, #e9eef7);
+  font: inherit;
+}
+.give-picker__none { margin: 0; color: var(--agency-dim, #9eabc2); font-size: 0.82rem; }

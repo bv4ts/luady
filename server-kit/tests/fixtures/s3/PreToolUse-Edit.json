@@ -1,0 +1,20 @@
+{
+  "session_id": "SESSION_ID",
+  "transcript_path": "<transcript>",
+  "cwd": "<cwd>",
+  "scratchpad_dir": "<scratchpad>",
+  "prompt_id": "PROMPT_ID",
+  "permission_mode": "bypassPermissions",
+  "effort": {
+    "level": "medium"
+  },
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Edit",
+  "tool_input": {
+    "file_path": "<cwd>/notes.txt",
+    "old_string": "<text>",
+    "new_string": "<text>",
+    "replace_all": false
+  },
+  "tool_use_id": "TOOL_USE_ID"
+}

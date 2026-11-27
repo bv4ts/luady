@@ -1,0 +1,133 @@
+/*
+ * The large pop-up frame (Board, Notes, Library, Jira, Activity): a dusk-glass window over the dimmed office.
+ * Pop-ups fill .modal-frame__body; the frame gives the title, the close button, the scroll and the motion.
+ * The body pads 20px (16px on a phone): content that wants to run edge to edge uses margin: -20px (-16px).
+ */
+.modal-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--agency-topbar-h, 56px) + 12px) 24px calc(var(--agency-chat-h, 64px) + 12px);
+  background: var(--overlay, rgb(8 6 18 / 0.62));
+}
+
+.modal-frame__dialog {
+  display: flex;
+  flex-direction: column;
+  width: min(1120px, 100%);
+  height: min(860px, 100%);
+  min-height: 0;
+  overflow: hidden;
+  border: 2px solid var(--agency-line-strong, #6b5f9c);
+  border-radius: 6px;
+  background: var(--agency-panel, #1b1731);
+  color: var(--agency-text, #f2edfb);
+  box-shadow: inset 0 1px 0 rgb(255 192 102 / 0.22), 0 4px 0 rgb(4 2 12 / 0.55), 0 30px 80px rgb(4 2 12 / 0.65);
+  font-size: var(--text-md);
+  line-height: var(--leading);
+  outline: none;
+}
+
+.modal-frame__head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 56px;
+  padding: 8px 8px 8px 20px;
+  border-bottom: 2px solid var(--agency-line, #3a325e);
+  background: var(--agency-panel-2, #251f40);
+}
+
+.modal-frame__title {
+  margin: 0;
+  color: var(--agency-text, #f2edfb);
+  font-family: var(--agency-font-pixel);
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+/* "Notes · 2 new": the cream of the notes' paper with a soft glow. */
+.modal-frame__badge {
+  margin-inline-start: 2px;
+  color: #f2e8d0;
+  font-size: 0.85em;
+  word-spacing: 0.15em;
+  text-shadow: 0 0 8px rgb(242 232 208 / 0.45);
+  white-space: nowrap;
+}
+
+.modal-frame__close {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--agency-tap, 40px);
+  height: var(--agency-tap, 40px);
+  padding: 0;
+  border: 2px solid var(--agency-line, #3a325e);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--agency-dim, #b6aed3);
+  cursor: pointer;
+}
+
+.modal-frame__close:hover { border-color: var(--agency-line-strong, #6b5f9c); color: var(--agency-text, #f2edfb); }
+.modal-frame__close:focus-visible { outline: 3px solid var(--agency-focus, #ffc066); outline-offset: 2px; }
+
+.modal-frame__body {
+  flex: 1;
+  min-height: 0;
+  padding: 20px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--agency-line-strong, #6b5f9c) transparent;
+}
+
+.modal-frame__loading {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  margin: 0;
+  color: var(--agency-dim, #b6aed3);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .modal-frame { animation: modal-frame-fade 160ms ease-out; }
+  .modal-frame__dialog { animation: modal-frame-rise 220ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+}
+
+@keyframes modal-frame-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modal-frame-rise { from { opacity: 0; transform: translateY(10px) scale(0.985); } to { opacity: 1; transform: none; } }
+@keyframes modal-frame-sheet { from { transform: translateY(32px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* A phone: a full-screen sheet with the close button where the thumb is. */
+@media (max-width: 759px) {
+  .modal-frame { align-items: stretch; padding: 0; }
+
+  .modal-frame__dialog {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    box-shadow: none;
+  }
+
+  .modal-frame__head { min-height: 52px; padding: max(6px, env(safe-area-inset-top)) 6px 6px 16px; }
+  .modal-frame__title { font-size: 1.25rem; }
+  .modal-frame__body { padding: 16px; }
+}
+
+@media (max-width: 759px) and (prefers-reduced-motion: no-preference) {
+  .modal-frame__dialog { animation: modal-frame-sheet 240ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+}
+
+/* The dialog itself takes focus only so Tab starts inside it: no ring around the whole window. */
+.agency .modal-frame__dialog:focus-visible { outline: none; }

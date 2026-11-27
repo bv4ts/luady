@@ -1,0 +1,21 @@
+{
+  "session_id": "SESSION_ID",
+  "transcript_path": "<transcript>",
+  "cwd": "<cwd>",
+  "scratchpad_dir": "<scratchpad>",
+  "prompt_id": "PROMPT_ID",
+  "permission_mode": "bypassPermissions",
+  "effort": {
+    "level": "medium"
+  },
+  "hook_event_name": "PostToolUseFailure",
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "false",
+    "description": "<text>"
+  },
+  "tool_use_id": "TOOL_USE_ID",
+  "error": "Exit code 1",
+  "is_interrupt": false,
+  "duration_ms": 74
+}

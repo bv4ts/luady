@@ -1,0 +1,190 @@
+/* Notes: the list in the office's dark glass on the left, the open note as a sheet of paper on the right. */
+.notes {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  gap: 16px;
+  height: min(76vh, 820px);
+  min-height: 420px;
+  color: var(--agency-text, #e9eef7);
+}
+
+/* ---- the list ---- */
+.notes__list { display: flex; flex-direction: column; min-height: 0; }
+.notes__tools { display: flex; gap: 8px; margin-bottom: 10px; }
+.notes__search {
+  flex: 1;
+  min-width: 0;
+  min-height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--agency-line, #2d3850);
+  border-radius: 8px;
+  background: var(--agency-void, #0c101a);
+  color: inherit;
+  font: inherit;
+}
+.notes__new,
+.notes__retry,
+.notes__back {
+  flex: none;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.notes__retry,
+.notes__back { border-color: var(--agency-line, #2d3850); background: transparent; color: inherit; font-weight: 600; }
+.notes__back { display: none; }
+.notes__search:focus-visible,
+.notes__new:focus-visible,
+.notes__retry:focus-visible,
+.notes__back:focus-visible,
+.notes-row:focus-visible { outline: 3px solid var(--agency-focus, #ffb648); outline-offset: 1px; }
+
+.notes__rows { display: grid; gap: 6px; margin: 0; padding: 0 4px 8px 0; overflow-y: auto; list-style: none; overscroll-behavior: contain; }
+.notes-row {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--agency-line, #2d3850);
+  border-radius: 8px;
+  background: var(--agency-panel-2, #1a2233);
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.notes-row:hover { border-color: #47557a; }
+.notes-row[aria-current='true'] { border-color: var(--paper); box-shadow: inset 4px 0 0 var(--paper); }
+.notes-row__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.notes-row__tags { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
+/* A meeting not opened yet. The cream of "New note", the office's pixel font, a soft glow. */
+.notes-row__new {
+  display: inline-block;
+  padding: 2px 8px 1px;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  box-shadow: 0 0 6px rgb(242 232 208 / 0.55), 0 0 14px rgb(242 232 208 / 0.25);
+  animation: notes-new-glow 2.4s ease-in-out infinite alternate;
+}
+@keyframes notes-new-glow {
+  from { box-shadow: 0 0 4px rgb(242 232 208 / 0.4), 0 0 10px rgb(242 232 208 / 0.15); }
+  to { box-shadow: 0 0 8px rgb(242 232 208 / 0.7), 0 0 18px rgb(242 232 208 / 0.3); }
+}
+@media (prefers-reduced-motion: reduce) { .notes-row__new { animation: none; } }
+.notes-row[data-new='true'] .notes-row__title { color: #fff; }
+.notes-row__kind { color: var(--agency-dim, #9eabc2); font-size: 0.75rem; font-weight: 700; }
+.notes-row__kind[data-kind='meeting'] { color: var(--agency-teal, #3cc3b0); }
+.notes-row__when { color: var(--agency-dim, #9eabc2); font-size: 0.75rem; white-space: nowrap; }
+.notes-row__title { overflow: hidden; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.notes-row__line {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--agency-dim, #9eabc2);
+  font-size: 0.82rem;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.notes__quiet,
+.notes__error { margin: 8px 4px; color: var(--agency-dim, #9eabc2); font-size: 0.88rem; }
+.notes__error { color: var(--agency-red, #ff6b5e); }
+.notes__error p { margin: 0 0 8px; }
+
+/* ---- the page: a dark desk with the paper on it ---- */
+.notes__page {
+  min-height: 0;
+  padding: 18px 18px 24px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #2a1d12, #20160e);
+  box-shadow: inset 0 2px 8px rgb(0 0 0 / 0.5);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.notes__pick { margin-top: 40%; text-align: center; }
+
+.note-sheet {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 28px 26px;
+  background:
+    linear-gradient(90deg, transparent 0 40px, rgb(199 58 46 / 0.22) 40px 41px, transparent 41px),
+    linear-gradient(180deg, #f8f1de, var(--paper) 30%, #efe3c7);
+  box-shadow: 0 2px 2px rgb(60 40 15 / 0.35), 0 16px 30px rgb(0 0 0 / 0.45);
+  color: var(--ink);
+}
+.note-sheet .card-sheet__pin { left: 50%; }
+.note-sheet__head { display: grid; gap: 4px; }
+.note-sheet__kind { color: var(--ink-soft); font-size: 0.78rem; font-weight: 800; }
+.note-sheet__kind[data-kind='meeting'] { color: var(--stamp-teal); }
+.note-sheet__title { margin: 0; font-size: 1.4rem; line-height: 1.25; overflow-wrap: anywhere; }
+.note-sheet__gist { margin: 0; font-size: 1rem; font-style: italic; font-weight: 600; }
+.note-sheet__summary { font-size: 0.95rem; }
+.note-sheet h4 { margin: 0 0 6px; color: var(--ink-soft); font-size: 0.78rem; font-weight: 800; }
+.note-sheet__items ul,
+.note-sheet__cards ul { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.note-sheet__items li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+  padding: 6px 0 6px 18px;
+  border-bottom: 1px dashed var(--paper-line);
+  background: radial-gradient(circle at 5px 1.15em, var(--ink-soft) 0 2.5px, transparent 3px) no-repeat;
+}
+.note-sheet__items li > span:first-child { flex: 1 1 240px; }
+.note-sheet__on-board { color: var(--stamp-teal); font-size: 0.8rem; font-weight: 700; }
+.note-sheet__cards li { font-size: 0.9rem; }
+.note-sheet__luady {
+  padding: 10px 12px;
+  border-left: 3px solid var(--stamp-teal);
+  background: rgb(23 118 107 / 0.08);
+  font-size: 0.92rem;
+}
+.note-sheet__transcript { display: grid; justify-items: start; gap: 6px; }
+.note-sheet__transcript-text {
+  width: 100%;
+  max-height: 320px;
+  margin: 0;
+  padding: 10px 12px;
+  background: rgb(43 33 22 / 0.06);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.88rem;
+  white-space: pre-wrap;
+  overflow-y: auto;
+}
+.note-sheet .card-sheet__actions { padding: 10px 0; }
+.note-sheet a.paper-btn { text-decoration: none; }
+
+.note-editor__meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.note-editor__body { gap: 4px; }
+.note-editor__text { min-height: 260px; font-size: 0.95rem; line-height: 1.5; }
+
+@media (max-width: 759px) {
+  .notes { grid-template-columns: 1fr; height: calc(100dvh - 96px); min-height: 360px; }
+  .notes:not([data-pane='list']) .notes__list { display: none; }
+  .notes[data-pane='list'] .notes__page { display: none; }
+  .notes__back { display: inline-block; margin-bottom: 12px; color: var(--plaque-ink); }
+  .notes__page { padding: 10px 8px 16px; }
+  .note-sheet { padding: 20px 16px 22px 24px; background: linear-gradient(180deg, #f8f1de, var(--paper) 30%, #efe3c7); }
+  .note-editor__meta { grid-template-columns: 1fr; }
+}
+
+/* The editor is a clean sheet: the notebook margin would run through the fields. */
+.note-sheet.note-editor { background: linear-gradient(180deg, #f8f1de, var(--paper) 30%, #efe3c7); }

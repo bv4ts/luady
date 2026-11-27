@@ -1,0 +1,36 @@
+{
+  "name": "@luady/mcp",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "luady-mcp: stdio MCP server that forwards Luady's tool calls to luady-hub over hub.sock",
+  "type": "module",
+  "main": "dist/main.js",
+  "bin": {
+    "luady-mcp": "dist/main.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc -p tsconfig.json --noEmit --tsBuildInfoFile dist/typecheck.tsbuildinfo"
+  },
+  "dependencies": {
+    "@luady/shared": "*",
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@vitest/coverage-v8": "5.0.3",
+    "ajv": "8.20.0",
+    "typescript": "5.9.3",
+    "vitest": "5.0.3"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@luady/shared",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./pure": {
+      "types": "./dist/pure/index.d.ts",
+      "default": "./dist/pure/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc -p tsconfig.json --noEmit --tsBuildInfoFile dist/typecheck.tsbuildinfo"
+  },
+  "dependencies": {
+    "zod": "4.6.5"
+  }
+}

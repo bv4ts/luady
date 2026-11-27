@@ -1,0 +1,32 @@
+{
+  "session_id": "SESSION_ID",
+  "transcript_path": "<transcript>",
+  "cwd": "<cwd>",
+  "scratchpad_dir": "<scratchpad>",
+  "prompt_id": "PROMPT_ID",
+  "permission_mode": "bypassPermissions",
+  "effort": {
+    "level": "medium"
+  },
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Agent",
+  "tool_input": {
+    "description": "<text>",
+    "prompt": "<text>",
+    "subagent_type": "Explore",
+    "effort": "lower"
+  },
+  "tool_response": {
+    "isAsync": true,
+    "status": "async_launched",
+    "agentId": "AGENT_ID",
+    "description": "<text>",
+    "resolvedModel": "claude-haiku-5-5",
+    "prompt": "<text>",
+    "outputFile": "<output-file>",
+    "canReadOutputFile": true,
+    "canContinueAgent": true
+  },
+  "tool_use_id": "TOOL_USE_ID",
+  "duration_ms": 34
+}

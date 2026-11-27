@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "hub": {
+      "type": "stdio",
+      "command": "/home/luady/.local/bin/node",
+      "args": ["/home/luady/app/current/packages/mcp/dist/main.js"],
+      "env": {
+        "LUADY_HUB_SOCKET": "/home/luady/run/hub.sock",
+        "LUADY_HUB_TOKEN_FILE": "/home/luady/.config/luady/hub-token"
+      }
+    }
+  }
+}

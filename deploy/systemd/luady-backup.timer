@@ -1,0 +1,12 @@
+# Runs luady-backup.service daily at 04:30 in the server's own local time.
+# Installed by deploy/provision.sh, which embeds a byte-identical copy (tests enforce it).
+[Unit]
+Description=Daily Luady backup at 04:30 local time
+
+[Timer]
+OnCalendar=*-*-* 04:30:00
+RandomizedDelaySec=600
+Persistent=true
+
+[Install]
+WantedBy=timers.target

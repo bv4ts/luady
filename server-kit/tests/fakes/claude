@@ -1,0 +1,3 @@
+#!/bin/bash
+# Test double for Claude Code: re-exec Python with argv[0]="claude" so tmux reports pane_current_command=claude.
+exec -a claude /usr/bin/python3 -u "$(dirname "$(readlink -f "$0")")/fake_claude.py" "$@"

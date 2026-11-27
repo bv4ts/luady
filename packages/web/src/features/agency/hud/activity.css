@@ -1,0 +1,49 @@
+/* The Activity pop-up: one row per working session, the office colour down its left edge. */
+.activity { display: flex; flex-direction: column; gap: var(--space-3); max-width: 760px; margin: 0 auto; }
+.activity__sum { margin: 0; color: var(--agency-dim); font-family: var(--agency-font-pixel); font-size: 1rem; }
+.activity__list { display: flex; flex-direction: column; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+
+.activity-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-3);
+  border: 2px solid var(--agency-line);
+  border-left: 6px solid var(--team);
+  border-radius: var(--agency-radius);
+  background: var(--agency-panel-2);
+  color: var(--agency-text);
+  text-align: start;
+}
+.activity-row:hover { border-color: var(--agency-line-strong); border-left-color: var(--team); background: var(--agency-panel-3); }
+
+/* The same soft pulse the map draws under a working character. */
+.activity-row__pulse {
+  width: 10px;
+  height: 10px;
+  margin-top: 6px;
+  border-radius: 2px;
+  background: var(--team);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--team) 30%, transparent);
+}
+.activity-row__main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.activity-row__top { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.activity-row__name { overflow-wrap: anywhere; font-size: var(--text-md); font-weight: var(--weight-bold); }
+.activity-row__step { overflow: hidden; color: var(--agency-text); text-overflow: ellipsis; white-space: nowrap; }
+.activity-row__helpers { display: flex; align-items: center; gap: var(--space-2); color: var(--agency-dim); font-size: var(--text-xs); }
+.activity-row__heads { display: inline-flex; gap: 2px; }
+.activity-row__heads i { width: 6px; height: 6px; border-radius: 1px; background: var(--team-accent, var(--agency-dim)); }
+.activity-row__turn { color: var(--agency-dim); font-size: var(--text-xs); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .activity-row__pulse { animation: activity-pulse 1.6s ease-in-out infinite; }
+}
+@keyframes activity-pulse { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--team) 0%, transparent); } }
+
+@media (max-width: 759px) {
+  .activity-row { grid-template-columns: auto 1fr; row-gap: 2px; }
+  .activity-row__turn { grid-column: 2; }
+  .activity-row__step { white-space: normal; }
+}

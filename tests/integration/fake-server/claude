@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# fake-claude launcher. argv[0] must end in "claude" so tmux's #{pane_current_command} and the
+# kit's process-tree check see a Claude pane, like the real native binary. Python derives
+# sys.prefix from /usr/bin (the dirname of the fake argv[0]), so the stdlib still loads.
+set -euo pipefail
+exec -a /usr/bin/claude /usr/bin/python3 -I /opt/fake-claude/fake_claude.py "$@"

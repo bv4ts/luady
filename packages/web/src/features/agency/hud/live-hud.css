@@ -1,0 +1,229 @@
+/* Live parts of the office HUD: menu hints and the note box. Same dark "night office" surface as the rest of the HUD. */
+.agency-note { z-index: 6; }
+
+/* ---- menu: an item that cannot be used now, with the reason under it ---- */
+.agency-menu__item--blocked { color: var(--agency-dim); cursor: not-allowed; }
+.agency-menu__hint { max-width: 14rem; margin: -2px 4px 2px; color: var(--agency-dim); font-size: var(--text-xs); }
+
+/* ---- "Send a note" ---- */
+.agency-note {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: min(20rem, calc(100vw - 16px));
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  border: 2px solid var(--agency-text);
+  border-radius: 6px;
+  background: var(--agency-panel);
+  box-shadow: 4px 4px 0 var(--agency-shadow);
+}
+.agency-note__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+.agency-note__title { min-width: 0; overflow: hidden; color: var(--agency-teal); font-weight: var(--weight-bold); text-overflow: ellipsis; white-space: nowrap; }
+.agency-note__close {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--agency-tap);
+  height: var(--agency-tap);
+  border: 2px solid var(--agency-line);
+  border-radius: 4px;
+  background: var(--agency-panel-2);
+  color: var(--agency-text);
+}
+.agency-note__input {
+  width: 100%;
+  min-height: 4.5rem;
+  padding: var(--space-2);
+  border: 2px solid var(--agency-line);
+  border-radius: 4px;
+  background: var(--agency-void);
+  color: var(--agency-text);
+  font: inherit;
+  font-size: var(--text-input);
+  resize: vertical;
+}
+.agency-note__input::placeholder { color: var(--agency-dim); }
+.agency-note__input:disabled { opacity: 0.6; }
+.agency-note__hint { margin: 0; color: var(--agency-amber); font-size: var(--text-xs); font-weight: var(--weight-semibold); }
+.agency-note__error { margin: 0; color: var(--agency-red); font-size: var(--text-xs); }
+.agency-note__actions { display: flex; justify-content: flex-end; }
+.agency-note__actions .btn { min-height: var(--agency-tap); }
+
+/* ---- energy bar: the fullest account's 5-hour window ---- */
+.agency-energy,
+.agency-pill-updates {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--agency-tap);
+  padding: 0 var(--space-2);
+  border: 2px solid var(--agency-line);
+  border-radius: 4px;
+  background: var(--agency-panel);
+  color: var(--agency-text);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+}
+.agency-energy:hover,
+.agency-pill-updates:hover { border-color: var(--agency-dim); }
+.agency-energy__label { color: var(--agency-dim); }
+.agency-energy__bar {
+  position: relative;
+  width: 44px;
+  height: 8px;
+  overflow: hidden;
+  border: 1px solid var(--agency-line);
+  border-radius: 2px;
+  background: var(--agency-void);
+}
+.agency-energy__bar::after {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--fill, 0%);
+  background: var(--agency-teal);
+  content: '';
+}
+.agency-energy--amber .agency-energy__bar::after { background: var(--agency-amber); }
+.agency-energy--red { border-color: var(--agency-red); }
+.agency-energy--red .agency-energy__bar::after { background: var(--agency-red); }
+.agency-energy__pct { font-variant-numeric: tabular-nums; }
+
+/* ---- where updates go ---- */
+.agency-pill-updates { border-radius: var(--radius-pill); font-size: var(--text-xs); }
+.agency-pill-updates .icon { width: 16px; height: 16px; color: var(--agency-teal); }
+.agency-pill-updates--chat { border-color: var(--agency-amber); }
+.agency-pill-updates--chat .icon { color: var(--agency-amber); }
+.agency-pill-updates:disabled { opacity: 0.7; }
+
+@media (max-width: 759px) {
+  .agency-energy,
+  .agency-pill-updates { min-height: 38px; padding: 0 6px; }
+  .agency-pill-updates { justify-content: center; min-width: 38px; padding: 0; }
+  .agency-energy__label,
+  .agency-pill-updates__text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .agency-energy__bar { width: 28px; }
+}
+
+/* ---- notices button ---- */
+.agency-notices {
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  min-width: var(--agency-tap);
+  min-height: var(--agency-tap);
+  border: 2px solid var(--agency-line);
+  border-radius: 4px;
+  background: var(--agency-panel);
+  color: var(--agency-text);
+}
+.agency-notices:hover { border-color: var(--agency-dim); }
+.agency-notices__count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 1.1rem;
+  padding: 0 4px;
+  border-radius: var(--radius-pill);
+  background: var(--agency-amber);
+  color: var(--agency-ink-dark);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  line-height: 1.1rem;
+  text-align: center;
+}
+
+/* ---- notice toasts: under the top bar on the right, beside an open dock, never over the bell or a sheet ---- */
+.notice-toasts {
+  position: absolute;
+  top: calc(var(--agency-topbar-h) + var(--space-2));
+  right: var(--space-3);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: min(22rem, calc(100% - 2 * var(--space-3)));
+  pointer-events: none;
+}
+.agency:has(.agency-panel--dock) .notice-toasts { right: calc(var(--agency-dock-w) + var(--space-3)); }
+.notice-toast {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+  border: 2px solid var(--agency-line);
+  border-left: 4px solid var(--agency-teal);
+  border-radius: 6px;
+  background: var(--agency-panel);
+  box-shadow: 4px 4px 0 var(--agency-shadow);
+  color: var(--agency-text);
+  cursor: pointer;
+  pointer-events: auto;
+}
+.notice-toast--alert,
+.notice-toast--system { border-left-color: var(--agency-amber); }
+.notice-toast__icon { margin-top: 2px; color: var(--agency-teal); }
+.notice-toast__text { max-height: 7.5em; min-width: 0; overflow: hidden; font-size: var(--text-sm); overflow-wrap: anywhere; }
+.notice-toast__text a { color: var(--agency-teal); }
+.notice-toast__actions { display: flex; align-items: center; gap: 2px; }
+.notice-toast__open,
+.notice-toast__close {
+  display: grid;
+  place-items: center;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--agency-dim);
+  font-weight: var(--weight-semibold);
+}
+.notice-toast__open:hover,
+.notice-toast__close:hover { background: var(--agency-panel-2); color: var(--agency-text); }
+@media (prefers-reduced-motion: no-preference) {
+  .notice-toast { animation: notice-in var(--dur) var(--ease-out); }
+}
+@keyframes notice-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+/* On a phone an open sheet leaves the free band above it; the toasts stay in the band under the top bar. */
+@media (max-width: 759px) {
+  .notice-toasts { right: var(--space-2); left: var(--space-2); width: auto; }
+  .notice-toast__text { max-height: 4.5em; }
+}
+
+/* A laptop-wide top bar has to fit five rooms, the bell, notices, the energy bar and the pill: the classic view link
+   becomes its icon (its name stays for screen readers) and the energy bar a little shorter. */
+@media (min-width: 760px) and (max-width: 1439px) {
+  .agency-classic { padding: 0 var(--space-2); }
+  .agency-classic__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .agency-energy__bar { width: 32px; }
+  /* The updates pill becomes its icon (its words stay as the tooltip and for screen readers). */
+  .agency-pill-updates { justify-content: center; min-width: var(--agency-tap); padding: 0; }
+  .agency-pill-updates__text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

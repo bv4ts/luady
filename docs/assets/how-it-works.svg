@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 430" width="800" height="430" role="img" aria-labelledby="t d">
+  <title id="t">How Luady works</title>
+  <desc id="d">Your browser talks to the Luady hub on your machine over HTTP and WebSocket. The hub, the optional manager, add-ons and this computer's own sessions live on that machine. The hub reaches each server over SSH and runs only fixed commands of the kit there; each server runs the kit, tmux and Claude Code.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L8 4 L0 8 z" fill="#ffc066"/>
+    </marker>
+    <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="2" height="2" fill="#1d1838"/>
+    </pattern>
+    <!-- a pixel creature, 8 x 7 cells of 3 px -->
+    <g id="bun">
+      <rect x="9" y="0" width="3" height="3"/>
+      <rect x="6" y="3" width="12" height="3"/>
+      <rect x="3" y="6" width="18" height="12"/>
+      <rect x="6" y="18" width="3" height="3"/>
+      <rect x="15" y="18" width="3" height="3"/>
+      <rect x="7" y="9" width="3" height="3" fill="#fffaf0"/>
+      <rect x="14" y="9" width="3" height="3" fill="#fffaf0"/>
+    </g>
+  </defs>
+
+  <rect width="800" height="430" rx="10" fill="#0d0b1a"/>
+  <rect width="800" height="430" rx="10" fill="url(#dots)"/>
+
+  <g font-family="ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace" fill="#f2edfb">
+    <!-- the browser -->
+    <rect x="34" y="130" width="168" height="96" fill="#04020c"/>
+    <rect x="30" y="126" width="168" height="96" fill="#1b1731" stroke="#6b5f9c" stroke-width="3"/>
+    <rect x="30" y="126" width="168" height="18" fill="#30294f"/>
+    <rect x="38" y="132" width="6" height="6" fill="#ff7a68"/><rect x="48" y="132" width="6" height="6" fill="#ffc066"/><rect x="58" y="132" width="6" height="6" fill="#7ddc8f"/>
+    <text x="46" y="174" font-size="16" font-weight="700">Your browser</text>
+    <text x="46" y="196" font-size="12" fill="#b6aed3">the office website</text>
+
+    <!-- browser to hub -->
+    <line x1="203" y1="174" x2="262" y2="174" stroke="#ffc066" stroke-width="3" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <text x="232" y="244" font-size="11" fill="#b6aed3" text-anchor="middle">HTTP and</text>
+    <text x="232" y="258" font-size="11" fill="#b6aed3" text-anchor="middle">WebSocket</text>
+    <text x="232" y="272" font-size="11" fill="#b6aed3" text-anchor="middle">localhost</text>
+
+    <!-- your machine -->
+    <rect x="266" y="30" width="300" height="372" fill="none" stroke="#3a325e" stroke-width="3" stroke-dasharray="9 6"/>
+    <text x="280" y="54" font-size="12" fill="#ffc066" letter-spacing="1">YOUR MACHINE (LINUX OR WSL2)</text>
+
+    <!-- hub -->
+    <rect x="285" y="72" width="266" height="118" fill="#04020c"/>
+    <rect x="281" y="68" width="266" height="118" fill="#143a3a" stroke="#44d1bd" stroke-width="3"/>
+    <text x="297" y="96" font-size="17" font-weight="700">Luady hub</text>
+    <text x="297" y="118" font-size="12" fill="#d6f5ef">website and API</text>
+    <text x="297" y="136" font-size="12" fill="#d6f5ef">on 127.0.0.1:7410</text>
+    <text x="297" y="160" font-size="12" fill="#d6f5ef">passkeys, PIN, database,</text>
+    <text x="297" y="176" font-size="12" fill="#d6f5ef">the fleet key</text>
+
+    <!-- manager -->
+    <rect x="285" y="210" width="126" height="86" fill="#04020c"/>
+    <rect x="281" y="206" width="126" height="86" fill="#1b1731" stroke="#44d1bd" stroke-width="3" stroke-dasharray="6 4"/>
+    <text x="293" y="228" font-size="14" font-weight="700">Manager</text>
+    <text x="293" y="247" font-size="11" fill="#b6aed3">optional,</text>
+    <text x="293" y="262" font-size="11" fill="#b6aed3">off by default,</text>
+    <text x="293" y="277" font-size="11" fill="#b6aed3">own home folder</text>
+
+    <!-- add-ons -->
+    <rect x="425" y="210" width="126" height="86" fill="#04020c"/>
+    <rect x="421" y="206" width="126" height="86" fill="#1b1731" stroke="#ffc066" stroke-width="3" stroke-dasharray="6 4"/>
+    <text x="433" y="228" font-size="14" font-weight="700">Add-ons</text>
+    <text x="433" y="247" font-size="11" fill="#b6aed3">own processes,</text>
+    <text x="433" y="262" font-size="11" fill="#b6aed3">over the hub's</text>
+    <text x="433" y="277" font-size="11" fill="#b6aed3">Unix socket</text>
+
+    <line x1="344" y1="190" x2="344" y2="203" stroke="#44d1bd" stroke-width="3"/>
+    <line x1="484" y1="190" x2="484" y2="203" stroke="#ffc066" stroke-width="3"/>
+
+    <!-- this computer -->
+    <rect x="285" y="316" width="266" height="70" fill="#04020c"/>
+    <rect x="281" y="312" width="266" height="70" fill="#1b1731" stroke="#6b5f9c" stroke-width="3"/>
+    <use href="#bun" x="294" y="333" fill="#3d7bff"/>
+    <text x="330" y="336" font-size="14" font-weight="700">This computer</text>
+    <text x="330" y="356" font-size="11" fill="#b6aed3">kit, tmux, Claude Code</text>
+    <text x="330" y="371" font-size="11" fill="#b6aed3">(optional)</text>
+
+    <!-- hub to servers -->
+    <path d="M548 128 H588 V88 H616 M588 128 V200 H616 M588 200 V312 H616" fill="none" stroke="#ffc066" stroke-width="3" stroke-dasharray="7 5"/>
+    <polygon points="616,82 626,88 616,94" fill="#ffc066"/>
+    <polygon points="616,194 626,200 616,206" fill="#ffc066"/>
+    <polygon points="616,306 626,312 616,318" fill="#ffc066"/>
+    <text x="588" y="364" font-size="11" fill="#b6aed3" text-anchor="middle">SSH,</text>
+    <text x="588" y="378" font-size="11" fill="#b6aed3" text-anchor="middle">fixed</text>
+    <text x="588" y="392" font-size="11" fill="#b6aed3" text-anchor="middle">commands</text>
+
+    <!-- servers -->
+    <g>
+      <rect x="634" y="52" width="148" height="76" fill="#04020c"/>
+      <rect x="630" y="48" width="148" height="76" fill="#1b1731" stroke="#d6336c" stroke-width="3"/>
+      <use href="#bun" x="642" y="66" fill="#d6336c"/>
+      <text x="676" y="72" font-size="14" font-weight="700">Server</text>
+      <text x="676" y="92" font-size="11" fill="#b6aed3">kit, tmux,</text>
+      <text x="676" y="107" font-size="11" fill="#b6aed3">Claude Code</text>
+    </g>
+    <g>
+      <rect x="634" y="164" width="148" height="76" fill="#04020c"/>
+      <rect x="630" y="160" width="148" height="76" fill="#1b1731" stroke="#f76707" stroke-width="3"/>
+      <use href="#bun" x="642" y="178" fill="#f76707"/>
+      <text x="676" y="184" font-size="14" font-weight="700">Server</text>
+      <text x="676" y="204" font-size="11" fill="#b6aed3">kit, tmux,</text>
+      <text x="676" y="219" font-size="11" fill="#b6aed3">Claude Code</text>
+    </g>
+    <g>
+      <rect x="634" y="276" width="148" height="76" fill="#04020c"/>
+      <rect x="630" y="272" width="148" height="76" fill="#1b1731" stroke="#7c5cff" stroke-width="3"/>
+      <use href="#bun" x="642" y="290" fill="#7c5cff"/>
+      <text x="676" y="296" font-size="14" font-weight="700">Server</text>
+      <text x="676" y="316" font-size="11" fill="#b6aed3">kit, tmux,</text>
+      <text x="676" y="331" font-size="11" fill="#b6aed3">Claude Code</text>
+    </g>
+    <text x="704" y="378" font-size="12" fill="#ffc066" text-anchor="middle" letter-spacing="1">AS MANY AS</text>
+    <text x="704" y="394" font-size="12" fill="#ffc066" text-anchor="middle" letter-spacing="1">YOU LIKE</text>
+  </g>
+</svg>

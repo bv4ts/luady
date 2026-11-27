@@ -1,0 +1,19 @@
+html, body { margin: 0; height: 100%; background: #0c101a; color: #e9eef7; font: 13px/1.3 system-ui, sans-serif; overflow: hidden; }
+.demo-stage { position: fixed; inset: 0; }
+.demo-plates { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.demo-plate {
+  position: absolute; left: 0; top: 0; padding: 1px 4px; border-radius: 3px; white-space: nowrap;
+  background: rgba(12, 16, 26, 0.8); color: #e9eef7; font-size: 10px; overflow: hidden; text-overflow: ellipsis;
+}
+.demo-plate.needs { outline: 1px solid #e23a2e; }
+.demo-strip {
+  position: fixed; left: 0; right: 0; top: 0; height: 64px; box-sizing: border-box; padding: 6px 8px;
+  background: rgba(16, 20, 29, 0.92); border-bottom: 1px solid #39435a; display: flex; flex-direction: column; gap: 4px;
+}
+.demo-row { display: flex; gap: 4px; align-items: center; overflow-x: auto; white-space: nowrap; }
+.demo-row button, .demo-row select { font: inherit; padding: 3px 7px; background: #222a3b; color: #e9eef7; border: 1px solid #39435a; border-radius: 4px; }
+.demo-row button[aria-pressed='true'] { background: #3cc3b0; color: #0c101a; }
+.demo-log { display: block; color: #9aa7bd; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.demo-panel { position: fixed; background: rgba(233, 238, 247, 0.92); color: #10141d; padding: 12px; box-sizing: border-box; }
+.demo-dock { top: 64px; right: 0; bottom: 0; width: 360px; }
+.demo-sheet { left: 0; right: 0; bottom: 0; height: 56%; border-radius: 12px 12px 0 0; }

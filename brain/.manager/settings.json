@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": ["mcp__hub__*", "Read", "Write", "Edit", "Glob", "Grep", "WebSearch"],
+    "deny": ["Bash", "WebFetch", "NotebookEdit", "SendMessage", "ListAgents", "CronCreate", "CronDelete", "ScheduleWakeup", "RemoteTrigger", "Agent"]
+  },
+  "crossSessionInbound": "refuse",
+  "tui": "default",
+  "promptSuggestionEnabled": false,
+  "autoMemoryEnabled": false,
+  "statusLine": { "type": "command", "command": "python3 \"$HOME/.luady/hooks/luady_statusline.py\"" },
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "mcp__hub__session_start|mcp__hub__session_send|mcp__hub__image_generate", "hooks": [{ "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/.manager/prompt_gate.py\"", "timeout": 10 }] }
+    ],
+    "SessionStart": [
+      { "hooks": [{ "type": "command", "command": "python3 \"$HOME/.luady/hooks/luady_hook.py\"", "timeout": 5 }] }
+    ],
+    "UserPromptSubmit": [
+      { "hooks": [{ "type": "command", "command": "python3 \"$HOME/.luady/hooks/luady_hook.py\"", "async": true }] }
+    ],
+    "Stop": [
+      { "hooks": [{ "type": "command", "command": "python3 \"$HOME/.luady/hooks/luady_hook.py\"", "async": true }] }
+    ],
+    "StopFailure": [
+      { "hooks": [{ "type": "command", "command": "python3 \"$HOME/.luady/hooks/luady_hook.py\"", "async": true }] }
+    ],
+    "SessionEnd": [
+      { "hooks": [{ "type": "command", "command": "python3 \"$HOME/.luady/hooks/luady_hook.py\"", "async": true }] }
+    ]
+  }
+}

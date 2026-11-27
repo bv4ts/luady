@@ -1,0 +1,9 @@
+{
+  "about": "Files allowed to hold the self-host id as a literal (scripts/check-literals.mjs). A new entry needs a maintainer's review. Each entry uses it as the HQ room key, the HQ room kind or the HQ palette id, never as a host, except the kit's hook (Python cannot import ids.ts).",
+  "files": [
+    { "path": "packages/office/src/layout.ts", "reason": "HQ room key of the HQ camera zone (map.zones.hq)" },
+    { "path": "packages/office/src/rooms.ts", "reason": "HQ room id (HQ_ID) and the HQ room kind" },
+    { "path": "packages/web/src/features/agency/scene/camera-math.ts", "reason": "reads the HQ camera zone (map.zones.hq)" },
+    { "path": "server-kit/luady_kit/hook.py", "reason": "the self-host alias (the kit is Python and cannot import ids.ts): the manager's own sessions get no knowledge-base line" }
+  ]
+}

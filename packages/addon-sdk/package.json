@@ -1,0 +1,46 @@
+{
+  "name": "@luady/addon-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A small client for Luady Add-on Protocol v1: channels and tools that run as their own process",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./examples/echo": {
+      "types": "./dist/examples/echo.d.ts",
+      "default": "./dist/examples/echo.js"
+    }
+  },
+  "bin": {
+    "luady-echo-addon": "dist/examples/echo-main.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -b && node scripts/vendor-shared.mjs",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc -b ../shared && tsc -p tsconfig.json --noEmit --tsBuildInfoFile dist/typecheck.tsbuildinfo"
+  },
+  "dependencies": {
+    "ws": "8.22.0",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@luady/shared": "*",
+    "@types/node": "22.20.5",
+    "@types/ws": "8.18.2",
+    "@vitest/coverage-v8": "5.0.3",
+    "typescript": "5.9.3",
+    "vitest": "5.0.3"
+  }
+}

@@ -1,0 +1,428 @@
+/* The Board: a wooden frame around cork, paper cards pinned in four lanes under painted plaques. The wood
+   and cork are the one bold thing in the pop-up; cards, buttons and type stay quiet around them. */
+@import './paper.css';
+@import './remind.css';
+
+.board {
+  --board-h: min(76vh, 820px);
+  height: var(--board-h);
+  min-height: 420px;
+  color: var(--ink);
+}
+
+/* ---- wood ---- */
+.board__frame {
+  height: 100%;
+  padding: 14px;
+  border-radius: 6px;
+  background:
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 0.035) 0 2px, transparent 2px 9px, rgb(0 0 0 / 0.05) 9px 11px, transparent 11px 23px),
+    linear-gradient(180deg, var(--wood-light), var(--wood) 30%, var(--wood-dark));
+  box-shadow: inset 0 1px 0 rgb(255 220 170 / 0.25), inset 0 -2px 0 rgb(0 0 0 / 0.35), 0 10px 24px rgb(0 0 0 / 0.35);
+}
+
+/* ---- cork ---- */
+.board__cork {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 2px;
+  background:
+    radial-gradient(circle at 20% 30%, rgb(90 55 20 / 0.28) 0 1px, transparent 1.5px) 0 0 / 9px 11px,
+    radial-gradient(circle at 70% 60%, rgb(255 230 180 / 0.22) 0 1px, transparent 1.5px) 0 0 / 13px 7px,
+    radial-gradient(circle at 40% 80%, rgb(70 40 15 / 0.22) 0 1.2px, transparent 1.7px) 0 0 / 17px 15px,
+    #b0844f;
+  box-shadow: inset 0 3px 8px rgb(0 0 0 / 0.45), inset 0 0 0 1px rgb(0 0 0 / 0.35);
+  overflow: hidden;
+}
+
+.board__lanes {
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  min-height: 0;
+  padding: 12px 14px 14px;
+}
+
+.board__notice {
+  margin: 24px auto;
+  padding: 12px 16px;
+  border-radius: 4px;
+  background: var(--paper);
+  box-shadow: 0 3px 8px rgb(0 0 0 / 0.25);
+  color: var(--ink);
+  text-align: center;
+}
+.board__notice p { margin: 0 0 8px; }
+
+/* ---- a lane ---- */
+.board-lane { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.board-lane__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+
+/* Painted plaque: a small board of dark wood with pale lettering, nailed at both ends. */
+.board-plaque {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  padding: 5px 16px 6px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #5a3920, var(--wood-dark));
+  box-shadow: inset 0 1px 0 rgb(255 220 170 / 0.2), 0 2px 3px rgb(0 0 0 / 0.4);
+  color: var(--plaque-ink);
+  font-family: var(--display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 0 rgb(0 0 0 / 0.5);
+}
+.board-plaque::before,
+.board-plaque::after {
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin-top: -2px;
+  border-radius: 50%;
+  background: #c9b28a;
+  box-shadow: 0 1px 0 rgb(0 0 0 / 0.6);
+  content: '';
+}
+.board-plaque::before { left: 6px; }
+.board-plaque::after { right: 6px; }
+/* The count reads at a glance: body font, bold, dark on a light chip. */
+.board-plaque__count {
+  align-self: center;
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #f6e7c8;
+  box-shadow: inset 0 -1px 0 rgb(0 0 0 / 0.25);
+  color: #2b1a0c;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  text-shadow: none;
+}
+
+.board-lane__add {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--paper);
+  box-shadow: 0 2px 3px rgb(0 0 0 / 0.3);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.board-lane__add:hover { background: #fff6e0; }
+.board-lane__add:focus-visible { outline: 3px solid var(--agency-focus, #ffb648); outline-offset: 2px; }
+
+.board-lane__cards {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  padding: 8px 4px 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: rgb(61 38 21 / 0.6) transparent;
+  scrollbar-width: thin;
+}
+.board-lane__empty {
+  margin: 4px 6px;
+  color: rgb(43 33 22 / 0.78);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+.board-lane__foot {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 4px;
+  background: rgb(43 33 22 / 0.18);
+  color: #2b2116;
+  font: inherit;
+  font-size: 0.82rem;
+  text-align: start;
+}
+.board-lane__foot--link { font-weight: 600; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.board-lane__foot--link:hover:not(:disabled) { background: rgb(43 33 22 / 0.28); }
+.board-lane__foot--link:disabled { cursor: default; text-decoration: none; }
+
+/* ---- a paper card ---- */
+.paper-card {
+  position: relative;
+  display: grid;
+  flex: none;
+  gap: 6px;
+  padding: 12px 12px 10px 15px;
+  border-left: 5px solid var(--team, #6c7689);
+  border-radius: 1px 3px 3px 1px;
+  background: linear-gradient(180deg, #f6eed9, var(--paper) 40%, #ece0c3);
+  box-shadow: 0 1px 1px rgb(60 40 15 / 0.35), 0 5px 10px rgb(40 25 8 / 0.28);
+  color: var(--ink);
+  rotate: -0.5deg;
+}
+.paper-card:nth-child(3n + 2) { rotate: 0.6deg; }
+.paper-card:nth-child(3n) { rotate: -0.2deg; }
+.paper-card--picked { outline: 3px solid var(--stamp-teal); outline-offset: 2px; rotate: 0deg; }
+.paper-card--new { rotate: 0deg; }
+
+.paper-card__top { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-height: 18px; }
+.paper-card__place { color: var(--ink-soft); font-size: 0.75rem; font-weight: 600; }
+.paper-card__place--none { color: var(--ink-faint); font-weight: 500; }
+.paper-card__flag {
+  padding: 0 6px;
+  border: 1.5px solid currentcolor;
+  border-radius: 3px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1.5;
+  rotate: -3deg;
+}
+.paper-card__flag--today { color: var(--stamp-teal); }
+.paper-card__flag--high { color: var(--stamp-red); }
+
+.paper-card__title {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: start;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.paper-card__title:hover { text-decoration: underline; text-decoration-color: rgb(43 33 22 / 0.4); text-underline-offset: 3px; }
+.paper-card__title:focus-visible { outline: 3px solid var(--agency-focus, #ffb648); outline-offset: 3px; }
+
+.paper-card__work { display: grid; gap: 3px; }
+.paper-card__session { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--ink-soft); font-size: 0.8rem; font-weight: 600; }
+.paper-card__dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--team, #8a7860); box-shadow: 0 0 0 2px rgb(255 255 255 / 0.6); }
+.paper-card__dot[data-state='queued'] { background: transparent; box-shadow: inset 0 0 0 2px var(--ink-faint); }
+.paper-card__dot[data-state='working'] { animation: paper-pulse 1.6s ease-in-out infinite; }
+.paper-card__step,
+.paper-card__note,
+.paper-card__reason,
+.paper-card__result { margin: 0; color: var(--ink-soft); font-size: 0.8rem; line-height: 1.35; overflow-wrap: anywhere; }
+.paper-card__note { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; font-style: italic; }
+.paper-card__reason { color: #8a2a16; font-weight: 600; }
+.paper-card__when { color: var(--ink-faint); }
+.paper-card__error { margin: 0; color: var(--stamp-red); font-size: 0.82rem; }
+
+.paper-card__foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 4px; border-top: 1px dashed var(--paper-line); }
+.paper-card__pick { display: inline-flex; align-items: center; gap: 6px; min-height: 30px; color: var(--ink-soft); font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+.paper-card__pick input { width: 17px; height: 17px; accent-color: var(--stamp-teal); }
+.paper-card__grip {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 30px;
+  margin-left: auto;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: var(--ink-faint);
+  fill: currentcolor;
+  cursor: grab;
+  touch-action: none;
+}
+.paper-card__grip:hover { background: rgb(43 33 22 / 0.08); color: var(--ink); }
+.paper-card__grip:focus-visible { outline: 3px solid var(--agency-focus, #ffb648); }
+.paper-card__options { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.paper-card__buttons { display: flex; justify-content: flex-end; gap: 8px; }
+
+/* ---- the picked-cards tray: a wooden shelf along the bottom of the cork ---- */
+.board-tray {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px 8px 16px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, var(--wood-light), var(--wood-dark));
+  box-shadow: 0 8px 18px rgb(0 0 0 / 0.45), inset 0 1px 0 rgb(255 220 170 / 0.25);
+  translate: -50% 0;
+}
+.board-tray__count { margin-right: 4px; color: var(--plaque-ink); font-family: var(--display); font-weight: 700; white-space: nowrap; }
+.board-tray .paper-btn:not(.paper-btn--run) { border-color: transparent; background: var(--paper); }
+.board__cork--tray .board-lane__cards { padding-bottom: 84px; }
+
+/* ---- the lane switcher (phone) ---- */
+.board-switch { display: none; }
+
+/* ---- a card opened: one large sheet pinned over the cork ---- */
+.card-sheet {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: flex-end;
+  padding: 18px;
+  background: rgb(30 18 8 / 0.42);
+  overflow-y: auto;
+  outline: none;
+  animation: sheet-in 160ms ease-out;
+}
+.card-sheet__paper {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  width: min(640px, 100%);
+  min-height: min-content;
+  height: fit-content;
+  padding: 20px 24px 24px 28px;
+  border-left: 6px solid var(--team, #6c7689);
+  background: linear-gradient(180deg, #f8f1de, var(--paper) 30%, #efe3c7);
+  box-shadow: 0 2px 2px rgb(60 40 15 / 0.35), 0 18px 36px rgb(20 10 2 / 0.45);
+  color: var(--ink);
+}
+.card-sheet__pin { left: 18%; }
+.card-sheet__pin--right { left: 82%; }
+.card-sheet__bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.card-sheet__state { color: var(--ink-soft); font-size: 0.8rem; font-weight: 700; }
+.card-sheet__state[data-state='review'] { color: #8a2a16; }
+.card-sheet__state[data-state='running'],
+.card-sheet__state[data-state='queued'] { color: var(--stamp-teal); }
+.card-sheet__source { margin: 0; color: var(--ink-soft); font-size: 0.85rem; }
+.card-sheet__quiet { margin: 0; color: var(--ink-faint); font-size: 0.85rem; }
+.card-sheet__text { display: grid; justify-items: start; gap: 8px; }
+.card-sheet__text > .paper-input { width: 100%; }
+.card-sheet__text > .paper-card__buttons { justify-self: stretch; }
+.card-sheet__title { margin: 0; font-size: 1.35rem; line-height: 1.25; overflow-wrap: anywhere; }
+.card-sheet__details { width: 100%; font-size: 0.92rem; }
+.card-sheet__row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.card-sheet__place { display: flex; flex-wrap: wrap; gap: 10px; }
+.card-sheet__flags { display: flex; gap: 8px; }
+.card-sheet__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px 0; border-block: 1px dashed var(--paper-line); }
+.card-sheet__confirm { display: inline-flex; align-items: center; gap: 8px; color: var(--stamp-red); font-size: 0.85rem; font-weight: 700; }
+
+.card-sheet__work { display: grid; gap: 14px; }
+.card-sheet__work h4,
+.card-sheet__log h4 { margin: 0 0 4px; color: var(--ink-soft); font-size: 0.78rem; font-weight: 800; }
+.card-sheet__work p { margin: 0; }
+.card-sheet__answer { color: var(--color-text); }
+.card-sheet__session {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  background: rgb(43 33 22 / 0.06);
+}
+.card-sheet__swatch { flex: none; width: 10px; height: 34px; border-radius: 2px; background: var(--team, #8a7860); }
+.card-sheet__session-words { display: grid; flex: 1; min-width: 0; font-size: 0.88rem; }
+.card-sheet__session-words span { color: var(--ink-soft); font-size: 0.8rem; }
+.card-sheet__said {
+  max-height: 220px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--paper-shade);
+  background: rgb(255 253 246 / 0.55);
+  font-size: 0.88rem;
+  overflow-y: auto;
+}
+.card-sheet__reports ul,
+.card-sheet__log ol { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.card-sheet__reports li { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; font-size: 0.85rem; }
+.card-sheet__report-kind { font-weight: 800; }
+.card-sheet__reports li[data-kind='blocked'] .card-sheet__report-kind { color: var(--stamp-red); }
+.card-sheet__reports li[data-kind='done'] .card-sheet__report-kind { color: var(--stamp-teal); }
+.card-sheet__reports time,
+.card-sheet__log time { color: var(--ink-faint); font-size: 0.78rem; white-space: nowrap; }
+.card-sheet__result p { font-weight: 600; }
+.card-sheet__log li { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 0.82rem; }
+.card-sheet__log-kind { font-weight: 700; }
+.card-sheet__log-text { flex-basis: 100%; color: var(--ink-soft); overflow-wrap: anywhere; }
+
+@keyframes sheet-in {
+  from { opacity: 0; translate: 24px 0; }
+}
+@keyframes paper-pulse {
+  50% { box-shadow: 0 0 0 4px rgb(255 255 255 / 0.2); }
+}
+
+/* ---- a laptop: lanes a little tighter ---- */
+@media (max-width: 1200px) {
+  .board__lanes { gap: 10px; padding-inline: 10px; }
+  .paper-card { padding-right: 10px; }
+}
+
+/* ---- a phone: one lane at a time with a switcher on the frame ---- */
+@media (max-width: 759px) {
+  .board { --board-h: calc(100dvh - 96px); min-height: 360px; }
+  .board__frame { padding: 8px; border-radius: 0; }
+  .board-switch {
+    display: flex;
+    gap: 4px;
+    padding: 8px 8px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .board-switch__lane {
+    flex: 1 0 auto;
+    min-height: 40px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 3px;
+    background: rgb(61 38 21 / 0.55);
+    color: var(--plaque-ink);
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .board-switch__lane[aria-pressed='true'] { background: var(--wood-dark); box-shadow: inset 0 -3px 0 var(--plaque-ink); }
+  .board-switch__lane:focus-visible { outline: 3px solid var(--agency-focus, #ffb648); outline-offset: -3px; }
+  .board-switch__count { opacity: 0.7; }
+  .board__lanes { grid-template-columns: 1fr; padding: 10px; }
+  .board-lane:not(.board-lane--active) { display: none; }
+  .board-lane .board-plaque { display: none; }
+  .board-lane__head { justify-content: flex-end; margin-bottom: 0; }
+  .board-lane__head:not(:has(*:not(h3))) { display: none; }
+  .board-tray {
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 10px;
+    translate: none;
+  }
+  .board-tray__count { align-self: center; margin: 0; }
+  .board-tray__clear { justify-self: end; }
+  .board__cork--tray .board-lane__cards { padding-bottom: 130px; }
+  .card-sheet { padding: 8px; }
+  .card-sheet__paper { padding: 18px 16px 20px 18px; }
+  .card-sheet__title { font-size: 1.15rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-sheet { animation: none; }
+  .paper-card__dot[data-state='working'] { animation: none; }
+}
+
+/* Done straight from the card: sits between Pick and the drag grip. */
+.paper-card__foot .paper-card__done { margin-left: auto; }
+.paper-card__foot .paper-card__done + .paper-card__grip { margin-left: 0; }
