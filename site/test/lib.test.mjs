@@ -214,4 +214,6 @@ test('the link checker finds the files a page and a stylesheet point at, and ign
     + '<script src="/_next/static/chunks/a.js" async=""></script>';
   assert.deepEqual(urlsInHtml(html).map((u) => `${u.tag}:${u.url}`),
     ['script:/_next/static/chunks/a.js', 'a:/x/', 'img:a.png', 'img:a.png', 'img:b.png']);
+  const spaced = '<script>const t = \'<a href="/y/">\';</script ><a href="/x/">x</a>';
+  assert.deepEqual(urlsInHtml(spaced).map((u) => `${u.tag}:${u.url}`), ['a:/x/']);
 });

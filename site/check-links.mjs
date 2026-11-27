@@ -48,8 +48,8 @@ function idsOfHtml(file, cache) {
   return cache.get(file);
 }
 
-/** The page without its scripts (their data is not markup). */
-const withoutScripts = (html) => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+/** The page without its scripts (their data is not markup), each ending where the browser ends it (`</script >` too). */
+const withoutScripts = (html) => html.replace(/<script\b[^>]*>[\s\S]*?<\/script(?:[\t\n\f\r /][^>]*)?>/gi, '');
 
 /** href, src and every srcset candidate in a page, with the tag each came from (a script's src included). */
 export function urlsInHtml(html) {
