@@ -19,10 +19,13 @@ const OTHER_SOURCES = [
 
 const sha256 = (text) => `'sha256-${createHash('sha256').update(text, 'utf8').digest('base64')}'`;
 
-/** The bodies of the inline scripts of a page (scripts without a src), exactly as the browser hashes them. */
+/**
+ * The bodies of the inline scripts of a page (scripts without a src), exactly as the browser hashes them. A script
+ * ends where the browser ends it: at `</script` followed by `>`, a space, tab, line break or `/` (`</script >` too).
+ */
 export function inlineScripts(html) {
   const bodies = [];
-  for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
+  for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script(?:[\t\n\f\r /][^>]*)?>/gi)) {
     if (/\ssrc\s*=/i.test(match[1])) continue;
     bodies.push(match[2]);
   }
@@ -88,7 +91,7 @@ export function withPolicy(html, where = 'a page') {
   if (/http-equiv="Content-Security-Policy"/i.test(html)) throw new Error('csp: the page already has a policy');
   const match = CHARSET.exec(html);
   if (match === null) throw new Error('csp: the page has no <meta charset="utf-8"> to put the policy after');
-  for (const script of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
+  for (const script of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script(?:[\t\n\f\r /][^>]*)?>/gi)) {
     if (/\ssrc\s*=/i.test(script[1])) continue;
     if (!isNextScript(script[2], script[1])) {
       throw new Error(`csp: ${where} holds an inline script that Next.js did not write, so it gets no hash: ${script[2].slice(0, 80)}`);

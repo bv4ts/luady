@@ -171,6 +171,17 @@ test('every page\'s policy names its own inline scripts by hash and allows nothi
   assert.throws(() => withPolicy(done), /already has a policy/);
 });
 
+test('a script ends where the browser ends it, so each one is hashed and checked on its own', () => {
+  const first = '(self.__next_f=self.__next_f||[]).push([0])';
+  const hash = (text) => `'sha256-${createHash('sha256').update(text).digest('base64')}'`;
+  // `</script-x>` does not end a script in a browser; the other four do.
+  assert.deepEqual(inlineScripts('<script>a</script ><script>b</script\t\n x><SCRIPT>c</SCRIPT/><script>d</script-x></script>'),
+    ['a', 'b', 'c', 'd</script-x>']);
+  assert.ok(withPolicy(`<meta charset="utf-8"><script>${first}</script >`).includes(hash(first)));
+  assert.throws(() => withPolicy(`<meta charset="utf-8"><script>${first}</script ><script>alert(1)</script>`),
+    /Next\.js did not write, so it gets no hash: alert\(1\)$/);
+});
+
 test('an old address forwards to the new one, keeping its #section', () => {
   const page = forwarderPage({ basePath: '/luady', siteUrl: 'https://example.com/luady/', newPath: 'docs/rooms/', title: 'Rooms' });
   assert.match(page, /<script>location\.replace\("\/luady\/docs\/rooms\/"\+location\.hash\)<\/script>/);
