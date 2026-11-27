@@ -23,14 +23,14 @@
   },
   "dependencies": {
     "@luady/shared": "*",
-    "@modelcontextprotocol/sdk": "1.32.1",
-    "zod": "4.6.5"
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@types/node": "22.20.5",
-    "@vitest/coverage-v8": "5.0.3",
+    "@vitest/coverage-v8": "5.1.1",
     "ajv": "8.20.0",
     "typescript": "5.9.3",
-    "vitest": "5.0.3"
+    "vitest": "5.1.1"
   }
 }
