@@ -17,13 +17,13 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 
 | Licence | Packages | Runtime |
 | --- | --- | --- |
-| MIT | 360 | 255 |
+| MIT | 391 | 257 |
 | ISC | 20 | 19 |
 | BSD-3-Clause | 13 | 11 |
 | MPL-2.0 | 12 | 0 |
 | Apache-2.0 | 11 | 3 |
 | BSD-2-Clause | 8 | 6 |
-| BlueOak-1.0.0 | 5 | 5 |
+| BlueOak-1.0.0 | 6 | 6 |
 | 0BSD | 3 | 3 |
 | MIT-0 | 3 | 1 |
 | (MIT OR EUPL-1.1+) | 1 | 1 |
@@ -33,7 +33,7 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | OFL-1.1 | 1 | 1 |
 | Unlicense | 1 | 1 |
 
-## MIT (360)
+## MIT (391)
 
 | Package | Version | Kind |
 | --- | --- | --- |
@@ -51,28 +51,32 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | @csstools/css-color-parser | 4.2.6 | dev |
 | @csstools/css-parser-algorithms | 4.0.2 | dev |
 | @csstools/css-tokenizer | 4.0.2 | dev |
+| @emnapi/core | 2.0.0-beta.2 | dev |
+| @emnapi/runtime | 2.0.0-beta.2 | dev |
+| @emnapi/wasi-threads | 2.2.0 | dev |
 | @epic-web/invariant | 1.0.0 | runtime |
 | @exodus/bytes | 1.16.0 | dev |
 | @fastify/accept-negotiator | 2.1.0 | runtime |
 | @fastify/ajv-compiler | 4.0.6 | runtime |
-| @fastify/cookie | 11.1.3 | runtime |
+| @fastify/cookie | 11.1.5 | runtime |
 | @fastify/error | 4.2.0 | runtime |
 | @fastify/fast-json-stringify-compiler | 5.1.0 | runtime |
 | @fastify/forwarded | 3.0.2 | runtime |
 | @fastify/merge-json-schemas | 0.2.1 | runtime |
 | @fastify/proxy-addr | 5.1.1 | runtime |
-| @fastify/rate-limit | 11.2.1 | runtime |
-| @fastify/send | 4.1.1 | runtime |
-| @fastify/static | 10.1.6 | runtime |
-| @fastify/websocket | 11.3.4 | runtime |
+| @fastify/rate-limit | 11.3.0 | runtime |
+| @fastify/send | 4.2.1 | runtime |
+| @fastify/static | 10.1.12 | runtime |
+| @fastify/websocket | 11.3.7 | runtime |
 | @hexagon/base64 | 1.1.28 | runtime |
-| @hono/node-server | 2.1.4 | runtime |
+| @hono/node-server | 2.1.11 | runtime |
 | @jridgewell/resolve-uri | 3.1.2 | dev |
 | @jridgewell/sourcemap-codec | 1.6.0 | dev |
 | @jridgewell/trace-mapping | 0.3.31 | dev |
 | @levischuck/tiny-cbor | 0.2.11 | runtime |
 | @lukeed/ms | 2.0.2 | runtime |
-| @modelcontextprotocol/sdk | 1.32.1 | runtime |
+| @modelcontextprotocol/sdk | 1.32.2 | runtime |
+| @napi-rs/wasm-runtime | 1.2.6 | dev |
 | @next/env | 16.4.6 | runtime |
 | @next/swc-darwin-arm64 | 16.4.6 | runtime |
 | @next/swc-darwin-x64 | 16.4.6 | runtime |
@@ -83,6 +87,7 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | @next/swc-win32-arm64-msvc | 16.4.6 | runtime |
 | @next/swc-win32-x64-msvc | 16.4.6 | runtime |
 | @oxc-project/types | 0.153.0 | dev |
+| @oxc-project/types | 0.156.0 | dev |
 | @peculiar/asn1-android | 2.10.0 | runtime |
 | @peculiar/asn1-asym-key | 2.10.0 | runtime |
 | @peculiar/asn1-cms | 2.10.0 | runtime |
@@ -102,47 +107,66 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | @pinojs/redact | 0.4.0 | runtime |
 | @remix-run/route-pattern | 0.22.1 | runtime |
 | @rolldown/binding-android-arm-eabi | 1.2.13 | dev |
+| @rolldown/binding-android-arm-eabi | 1.2.19 | dev |
 | @rolldown/binding-android-arm64 | 1.2.13 | dev |
+| @rolldown/binding-android-arm64 | 1.2.19 | dev |
 | @rolldown/binding-darwin-arm64 | 1.2.13 | dev |
+| @rolldown/binding-darwin-arm64 | 1.2.19 | dev |
 | @rolldown/binding-darwin-x64 | 1.2.13 | dev |
+| @rolldown/binding-darwin-x64 | 1.2.19 | dev |
 | @rolldown/binding-freebsd-x64 | 1.2.13 | dev |
+| @rolldown/binding-freebsd-x64 | 1.2.19 | dev |
 | @rolldown/binding-linux-arm-gnueabihf | 1.2.13 | dev |
+| @rolldown/binding-linux-arm-gnueabihf | 1.2.19 | dev |
 | @rolldown/binding-linux-arm64-gnu | 1.2.13 | dev |
+| @rolldown/binding-linux-arm64-gnu | 1.2.19 | dev |
 | @rolldown/binding-linux-arm64-musl | 1.2.13 | dev |
+| @rolldown/binding-linux-arm64-musl | 1.2.19 | dev |
 | @rolldown/binding-linux-ppc64-gnu | 1.2.13 | dev |
+| @rolldown/binding-linux-ppc64-gnu | 1.2.19 | dev |
 | @rolldown/binding-linux-s390x-gnu | 1.2.13 | dev |
+| @rolldown/binding-linux-s390x-gnu | 1.2.19 | dev |
 | @rolldown/binding-linux-x64-gnu | 1.2.13 | dev |
+| @rolldown/binding-linux-x64-gnu | 1.2.19 | dev |
 | @rolldown/binding-linux-x64-musl | 1.2.13 | dev |
+| @rolldown/binding-linux-x64-musl | 1.2.19 | dev |
 | @rolldown/binding-openharmony-arm64 | 1.2.13 | dev |
+| @rolldown/binding-openharmony-arm64 | 1.2.19 | dev |
+| @rolldown/binding-wasm32-wasi | 1.2.19 | dev |
 | @rolldown/binding-win32-arm64-msvc | 1.2.13 | dev |
+| @rolldown/binding-win32-arm64-msvc | 1.2.19 | dev |
 | @rolldown/binding-win32-x64-msvc | 1.2.13 | dev |
+| @rolldown/binding-win32-x64-msvc | 1.2.19 | dev |
 | @rolldown/pluginutils | 1.0.1 | dev |
 | @selderee/plugin-htmlparser2 | 0.12.0 | runtime |
 | @simplewebauthn/browser | 14.0.0 | runtime |
-| @simplewebauthn/server | 14.0.3 | runtime |
+| @simplewebauthn/server | 14.1.0 | runtime |
 | @testing-library/dom | 10.4.2 | dev |
 | @testing-library/react | 16.3.3 | dev |
-| @testing-library/user-event | 14.6.7 | dev |
+| @testing-library/user-event | 14.6.13 | dev |
+| @tybys/wasm-util | 0.10.5 | dev |
 | @types/aria-query | 5.0.4 | dev |
 | @types/better-sqlite3 | 9.6.0 | dev |
 | @types/chai | 5.2.3 | dev |
 | @types/deep-eql | 4.0.2 | dev |
 | @types/earcut | 3.0.0 | runtime |
 | @types/estree | 1.0.9 | dev |
-| @types/mailparser | 3.4.6 | dev |
+| @types/mailparser | 3.9.0 | dev |
 | @types/node | 22.20.5 | dev |
 | @types/qrcode | 1.5.6 | dev |
-| @types/react | 19.3.0 | dev |
-| @types/react-dom | 19.3.0 | dev |
+| @types/react | 19.3.0 | runtime |
+| @types/react-dom | 19.3.0 | runtime |
 | @types/ssh2 | 1.15.6 | dev |
 | @types/trusted-types | 2.0.7 | runtime |
 | @types/ws | 8.18.2 | dev |
-| @vitejs/plugin-react | 6.1.2 | dev |
-| @vitest/coverage-v8 | 5.0.3 | dev |
-| @vitest/istanbul-lib-coverage | 1.0.2 | dev |
-| @vitest/istanbul-lib-report | 1.0.2 | dev |
+| @vitejs/plugin-react | 6.3.0 | dev |
+| @vitest/coverage-v8 | 5.1.1 | dev |
+| @vitest/istanbul-lib-coverage | 2.1.1 | dev |
+| @vitest/istanbul-lib-report | 2.1.1 | dev |
 | @vitest/mocker | 5.0.3 | dev |
+| @vitest/mocker | 5.1.1 | dev |
 | @vitest/spy | 5.0.3 | dev |
+| @vitest/spy | 5.1.1 | dev |
 | @xmldom/xmldom | 0.8.15 | runtime |
 | @xterm/addon-fit | 0.11.0 | runtime |
 | @xterm/addon-webgl | 0.19.0 | runtime |
@@ -154,17 +178,17 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | ansi-regex | 5.0.1 | runtime |
 | ansi-styles | 4.3.0 | runtime |
 | ansi-styles | 5.2.0 | dev |
-| argon2 | 0.45.1 | runtime |
+| argon2 | 0.45.2 | runtime |
 | asn1 | 0.2.6 | runtime |
 | assertion-error | 2.0.1 | dev |
 | ast-v8-to-istanbul | 1.0.7 | dev |
 | atomic-sleep | 1.0.0 | runtime |
 | avvio | 9.3.0 | runtime |
 | balanced-match | 4.0.4 | runtime |
-| better-sqlite3 | 13.0.3 | runtime |
+| better-sqlite3 | 13.2.0 | runtime |
 | bidi-js | 1.1.0 | dev |
-| body-parser | 2.3.0 | runtime |
-| brace-expansion | 5.0.12 | runtime |
+| body-parser | 2.4.0 | runtime |
+| brace-expansion | 5.1.0 | runtime |
 | buildcheck | 0.0.7 | runtime |
 | bytes | 3.1.2 | runtime |
 | call-bind-apply-helpers | 1.0.2 | runtime |
@@ -189,7 +213,7 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | cross-env | 10.1.0 | runtime |
 | cross-spawn | 7.0.6 | runtime |
 | css-tree | 3.2.1 | dev |
-| csstype | 3.2.3 | dev |
+| csstype | 3.2.3 | runtime |
 | csstype | 3.2.4 | dev |
 | data-urls | 8.0.0 | dev |
 | debug | 4.4.3 | runtime |
@@ -205,7 +229,7 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | ee-first | 1.1.1 | runtime |
 | emoji-regex | 8.0.0 | runtime |
 | encodeurl | 2.0.0 | runtime |
-| encoding-japanese | 2.4.0 | runtime |
+| encoding-japanese | 2.5.0 | runtime |
 | end-of-stream | 1.4.5 | runtime |
 | es-define-property | 1.0.1 | runtime |
 | es-errors | 1.3.0 | runtime |
@@ -223,11 +247,11 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | fast-deep-equal | 3.1.3 | runtime |
 | fast-json-stringify | 7.0.1 | runtime |
 | fast-querystring | 1.1.2 | runtime |
-| fastify | 5.12.5 | runtime |
+| fastify | 5.12.8 | runtime |
 | fastify-plugin | 6.0.0 | runtime |
 | fdir | 6.5.0 | dev |
 | finalhandler | 2.1.1 | runtime |
-| find-my-way | 9.9.0 | runtime |
+| find-my-way | 9.10.2 | runtime |
 | find-up | 4.1.0 | runtime |
 | forwarded | 0.2.0 | runtime |
 | fresh | 2.0.0 | runtime |
@@ -240,22 +264,22 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | has-symbols | 1.1.0 | runtime |
 | hasown | 2.0.4 | runtime |
 | he | 1.2.0 | runtime |
-| hono | 4.13.13 | runtime |
+| hono | 4.13.23 | runtime |
 | html-encoding-sniffer | 7.0.0 | dev |
 | html-to-text | 10.0.1 | runtime |
 | htmlparser2 | 10.1.0 | runtime |
 | http-errors | 2.0.1 | runtime |
 | iconv-lite | 0.6.3 | dev |
 | iconv-lite | 0.7.3 | runtime |
-| imapflow | 2.0.7 | runtime |
-| ip-address | 10.7.3 | runtime |
+| imapflow | 2.12.2 | runtime |
+| ip-address | 10.7.6 | runtime |
 | ipaddr.js | 1.9.1 | runtime |
 | ipaddr.js | 2.5.0 | runtime |
 | is-fullwidth-code-point | 3.0.0 | runtime |
 | is-potential-custom-element-name | 1.0.1 | dev |
 | is-promise | 4.0.0 | runtime |
 | ismobilejs | 1.1.1 | runtime |
-| jose | 6.2.12 | runtime |
+| jose | 6.2.18 | runtime |
 | js-binary-schema-parser | 2.0.3 | runtime |
 | js-tokens | 10.0.0 | dev |
 | js-tokens | 4.0.0 | dev |
@@ -263,16 +287,18 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | json-schema-ref-resolver | 3.0.0 | runtime |
 | json-schema-traverse | 1.0.0 | runtime |
 | leac | 0.7.0 | runtime |
-| libbase64 | 1.3.0 | runtime |
-| libmime | 5.4.4 | runtime |
-| libqp | 2.1.1 | runtime |
-| linkify-it | 5.0.2 | runtime |
+| libbase64 | 1.4.1 | runtime |
+| libmime | 5.6.5 | runtime |
+| libqp | 3.0.2 | runtime |
+| linkify-it | 6.1.0 | runtime |
 | locate-path | 5.0.0 | runtime |
 | lz-string | 1.5.0 | dev |
 | magic-string | 1.4.3 | dev |
+| magic-string | 1.4.5 | dev |
 | magicast | 0.5.5 | dev |
-| mailparser | 3.9.28 | runtime |
+| mailparser | 3.15.0 | runtime |
 | marked | 18.1.0 | runtime |
+| marked | 18.3.0 | runtime |
 | math-intrinsics | 1.1.0 | runtime |
 | media-typer | 1.1.1 | runtime |
 | merge-descriptors | 2.0.0 | runtime |
@@ -289,6 +315,7 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | object-assign | 4.1.1 | runtime |
 | object-inspect | 1.13.4 | runtime |
 | obug | 2.2.1 | dev |
+| obug | 3.0.0 | dev |
 | on-exit-leak-free | 2.1.2 | runtime |
 | on-finished | 2.4.1 | runtime |
 | p-limit | 2.3.0 | runtime |
@@ -307,12 +334,13 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | pino | 10.4.0 | runtime |
 | pino-abstract-transport | 3.0.0 | runtime |
 | pino-std-serializers | 7.1.0 | runtime |
-| pixi-viewport | 7.0.2 | runtime |
+| pixi-viewport | 7.0.3 | runtime |
 | pixi.js | 8.23.0 | runtime |
 | pkce-challenge | 5.0.1 | runtime |
 | pngjs | 5.0.0 | runtime |
 | postcss | 8.5.23 | runtime |
 | postcss | 8.5.29 | dev |
+| postcss | 8.5.33 | dev |
 | pretty-format | 27.5.1 | dev |
 | process-warning | 4.0.1 | runtime |
 | process-warning | 5.1.0 | runtime |
@@ -325,24 +353,23 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | quick-format-unescaped | 4.0.4 | runtime |
 | range-parser | 1.3.0 | runtime |
 | raw-body | 3.0.2 | runtime |
-| react | 19.3.0 | runtime |
 | react | 19.3.1 | runtime |
-| react-dom | 19.3.0 | runtime |
 | react-dom | 19.3.1 | runtime |
 | react-is | 17.0.2 | dev |
-| react-router | 8.4.0 | runtime |
+| react-router | 8.5.2 | runtime |
 | readable-stream | 3.6.2 | runtime |
 | real-require | 0.2.0 | runtime |
 | real-require | 1.0.0 | runtime |
 | require-directory | 2.1.1 | runtime |
 | require-from-string | 2.0.2 | runtime |
-| ret | 0.5.0 | runtime |
+| ret | 0.5.1 | runtime |
 | reusify | 1.1.0 | runtime |
 | rfdc | 1.4.1 | runtime |
 | rolldown | 1.2.13 | dev |
+| rolldown | 1.2.19 | dev |
 | router | 2.2.0 | runtime |
 | safe-buffer | 5.2.1 | runtime |
-| safe-regex2 | 5.1.1 | runtime |
+| safe-regex2 | 5.1.2 | runtime |
 | safe-stable-stringify | 2.5.0 | runtime |
 | safer-buffer | 2.1.2 | runtime |
 | scheduler | 0.28.0 | runtime |
@@ -357,7 +384,7 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | side-channel-map | 1.0.1 | runtime |
 | side-channel-weakmap | 1.0.2 | runtime |
 | smart-buffer | 4.2.0 | runtime |
-| socks | 2.8.10 | runtime |
+| socks | 2.8.11 | runtime |
 | sonic-boom | 4.2.1 | runtime |
 | ssh2 | 1.17.0 | runtime |
 | statuses | 2.0.2 | runtime |
@@ -369,6 +396,7 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | styled-jsx | 5.1.6 | runtime |
 | thread-stream | 4.2.0 | runtime |
 | tinybench | 6.2.1 | dev |
+| tinybench | 6.2.5 | dev |
 | tinyexec | 1.3.1 | dev |
 | tinyglobby | 0.2.17 | dev |
 | tinyrainbow | 3.2.0 | dev |
@@ -380,23 +408,26 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | tr46 | 7.0.0 | dev |
 | tsyringe | 4.10.0 | runtime |
 | type-is | 2.1.0 | runtime |
-| uc.micro | 2.1.0 | runtime |
-| undici | 8.11.2 | dev |
+| uc.micro | 3.0.0 | runtime |
+| undici | 8.13.1 | dev |
 | undici-types | 6.21.0 | dev |
 | unpipe | 1.0.0 | runtime |
 | util-deprecate | 1.0.2 | runtime |
 | vary | 1.1.2 | runtime |
 | vite | 8.3.4 | dev |
+| vite | 8.3.8 | dev |
 | vitest | 5.0.3 | dev |
+| vitest | 5.1.1 | dev |
 | w3c-xmlserializer | 6.0.0 | dev |
 | whatwg-mimetype | 5.0.0 | dev |
 | whatwg-url | 17.2.0 | dev |
 | why-is-node-running | 3.2.1 | dev |
 | wrap-ansi | 6.2.0 | runtime |
-| ws | 8.22.0 | runtime |
+| ws | 8.22.0 | dev |
+| ws | 8.23.0 | runtime |
 | xmlchars | 2.2.0 | dev |
 | yargs | 15.4.1 | runtime |
-| zod | 4.6.5 | runtime |
+| zod | 4.6.7 | runtime |
 
 ## ISC (20)
 
@@ -431,10 +462,10 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | asn1js | 3.0.10 | runtime |
 | bcrypt-pbkdf | 1.0.2 | runtime |
 | deepmerge-ts | 8.0.2 | runtime |
-| fast-uri | 3.1.8 | runtime |
-| fast-uri | 4.2.1 | runtime |
+| fast-uri | 3.1.9 | runtime |
+| fast-uri | 4.2.4 | runtime |
 | light-my-request | 6.6.0 | runtime |
-| qs | 6.16.0 | runtime |
+| qs | 6.17.1 | runtime |
 | secure-json-parse | 4.1.0 | runtime |
 | source-map-js | 1.2.2 | dev |
 | source-map-js | 1.2.4 | runtime |
@@ -487,15 +518,16 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | json-schema-typed | 8.0.2 | runtime |
 | webidl-conversions | 8.0.1 | dev |
 
-## BlueOak-1.0.0 (5)
+## BlueOak-1.0.0 (6)
 
 | Package | Version | Kind |
 | --- | --- | --- |
-| glob | 13.0.6 | runtime |
+| @isaacs/nonrecursive-glob-match | 1.1.0 | runtime |
+| glob | 14.0.6 | runtime |
 | lru-cache | 11.5.3 | runtime |
-| minimatch | 10.2.6 | runtime |
+| minimatch | 11.0.9 | runtime |
 | minipass | 7.1.3 | runtime |
-| path-scurry | 2.0.2 | runtime |
+| path-scurry | 3.0.0 | runtime |
 
 ## 0BSD (3)
 
@@ -511,19 +543,19 @@ material are in [NOTICE](NOTICE) and [licenses/](licenses/).
 | --- | --- | --- |
 | @csstools/color-helpers | 6.1.2 | dev |
 | @csstools/css-syntax-patches-for-csstree | 1.1.15 | dev |
-| nodemailer | 10.0.10 | runtime |
+| nodemailer | 10.6.1 | runtime |
 
 ## (MIT OR EUPL-1.1+) (1)
 
 | Package | Version | Kind |
 | --- | --- | --- |
-| @zone-eu/mailsplit | 5.4.17 | runtime |
+| @zone-eu/mailsplit | 5.4.31 | runtime |
 
 ## (MPL-2.0 OR Apache-2.0) (1)
 
 | Package | Version | Kind |
 | --- | --- | --- |
-| dompurify | 3.4.16 | runtime |
+| dompurify | 3.5.0 | runtime |
 
 ## CC-BY-4.0 (1)
 
